@@ -40,6 +40,18 @@ package-lock.json
 package.json
 .husky
 
+# Ignorar el entorno virtual
+venv/
+env/
+*.egg-info/
+*.egg
+
+# Ignorar archivos de entorno local
+*.env
+
+# Ignorar configuraciones específicas del editor (por ejemplo, VSCode)
+.vscode/
+
 # various virtualenv
 /bin/
 /build/
