@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_website_user_policies,website_user_policies,model_res_company,base.group_website_user_policies_admin,1,1,0,0
+access_website_user_policies,website_user_policies,model_res_company,base.group_website_user_policies_user,1,0,0,0

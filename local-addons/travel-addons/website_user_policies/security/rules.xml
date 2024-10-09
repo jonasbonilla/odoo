@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- No pueden modificar usuario Admin de Odoo (1, 2)-->
+    <record id="website_user_policies_no_admin" model="ir.rule">
+        <field name="name">No editar usuario 'Administrador'</field>
+        <field name="model_id" ref="base.model_res_users" />
+        <field name="domain_force">[('id', 'not in', [1, 2])]</field>
+        <field name="groups" eval="[
+            (4, ref('website_user_policies.website_user_policies_admin')),
+            (4, ref('website_user_policies.website_user_policies_user')),
+        ]" />
+    </record>
+
+    <!-- No pueden modificar contacto del usuario Admin (1, 2) de Odoo-->
+    <record id="contact_rule_distribuidor_no_admin" model="ir.rule">
+        <field name="name">No editar contacto 'Administrador'</field>
+        <field name="model_id" ref="base.model_res_partner" />
+        <field name="domain_force">[('id', 'not in', [1, 2, 3])]</field>
+        <field name="groups" eval="[
+            (4, ref('website_user_policies.website_user_policies_admin')),
+            (4, ref('website_user_policies.website_user_policies_user')),
+        ]" />
+    </record>
+
+</odoo>

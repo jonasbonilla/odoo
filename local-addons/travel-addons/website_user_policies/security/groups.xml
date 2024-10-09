@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--    Aplicacion -->
+    <record id="website_user_policies_management" model="ir.module.category">
+        <field name="name">Website User Policies</field>
+        <field name="description">Website User Policies</field>
+        <field name="parent_id" ref="base.module_category_extra"/>
+    </record>
+
+    <!--    Admin -->
+    <record id="website_user_policies_admin" model="res.groups">
+        <field name="name">Administrador</field>
+        <field name="comment">Website User Policies Admin</field>
+        <field name="category_id" ref="website_user_policies.website_user_policies_management"/>
+    </record>
+
+    <!--    User -->
+    <record id="website_user_policies_user" model="res.groups">
+        <field name="name">Usuario</field>
+        <field name="comment">Website User Policies User</field>
+        <field name="category_id" ref="website_user_policies.website_user_policies_management"/>
+    </record>
+</odoo>
