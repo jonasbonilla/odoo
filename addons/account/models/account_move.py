@@ -3745,7 +3745,8 @@ class AccountMove(models.Model):
         if not float_is_zero(tax_amount_rounding_error, precision_rounding=self.currency_id.rounding):
             for subtotal in totals['subtotals']:
                 if _('Untaxed Amount') == subtotal['name']:
-                    subtotal['tax_groups'][0]['tax_amount_currency'] += tax_amount_rounding_error
+                    if subtotal['tax_groups']:
+                        subtotal['tax_groups'][0]['tax_amount_currency'] += tax_amount_rounding_error
                     totals['total_amount_currency'] = amount_total
                     self.tax_totals = totals
                     break
@@ -4390,9 +4391,9 @@ class AccountMove(models.Model):
                             - sum(x['balance'] for x in res['base_lines'][payment_term_line].values()) \
                             - sum(x['balance'] for x in res['tax_lines'][payment_term_line].values())
 
-            last_tax_line = (list(res['tax_lines'][payment_term_line].values()) or list(res['base_lines'][payment_term_line].values()))[-1]
-            last_tax_line['amount_currency'] += delta_amount_currency
-            last_tax_line['balance'] += delta_balance
+            biggest_base_line = max(list(res['base_lines'][payment_term_line].values()), key=lambda x: x['amount_currency'])
+            biggest_base_line['amount_currency'] += delta_amount_currency
+            biggest_base_line['balance'] += delta_balance
 
         else:
             grouping_dict = {'account_id': cash_discount_account.id}

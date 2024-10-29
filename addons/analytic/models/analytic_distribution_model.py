@@ -12,6 +12,8 @@ class AccountAnalyticDistributionModel(models.Model):
     _description = 'Analytic Distribution Model'
     _rec_name = 'create_date'
     _order = 'sequence, id desc'
+    _check_company_auto = True
+    _check_company_domain = models.check_company_domain_parent_of
 
     sequence = fields.Integer(default=10)
     partner_id = fields.Many2one(
@@ -92,3 +94,15 @@ class AccountAnalyticDistributionModel(models.Model):
             return [(fname, 'in', value)]
         else:
             return [(fname, 'in', [value, False])]
+
+    # Dead method, removed in master
+    def action_read_distribution_model(self):
+        self.ensure_one()
+        return {
+            'name': self.display_name,
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'account.analytic.distribution.model',
+            'res_id': self.id,
+        }

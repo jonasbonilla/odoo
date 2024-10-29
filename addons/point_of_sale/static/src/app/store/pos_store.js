@@ -163,7 +163,7 @@ export class PosStore extends Reactive {
         return !this.cashier ? "LoginScreen" : "ProductScreen";
     }
 
-    showLoginScreen() {
+    async showLoginScreen() {
         this.reset_cashier();
         this.showScreen("LoginScreen");
         this.dialog.closeAll();
@@ -317,6 +317,12 @@ export class PosStore extends Reactive {
             ]);
         }
 
+        for (const product of this.models["product.product"].filter(
+            (p) => !productIds.has(p.id) && p.product_template_variant_value_ids.length > 0
+        )) {
+            productByTmplId[product.raw.product_tmpl_id].push(product);
+        }
+
         for (const products of Object.values(productByTmplId)) {
             const nbrProduct = products.length;
 
@@ -370,6 +376,8 @@ export class PosStore extends Reactive {
                 } else if (typeof order.id === "number") {
                     ids.add(order.id);
                 }
+            } else {
+                return false;
             }
         }
 
@@ -384,6 +392,7 @@ export class PosStore extends Reactive {
 
         if (ids.size > 0) {
             await this.data.call("pos.order", "action_pos_order_cancel", [Array.from(ids)]);
+            return true;
         }
 
         return true;
@@ -583,6 +592,11 @@ export class PosStore extends Reactive {
             searchTerm: "",
         };
     }
+
+    async setDiscountFromUI(line, val) {
+        line.set_discount(val);
+    }
+
     getDefaultPricelist() {
         const current_order = this.get_order();
         if (current_order) {
@@ -618,14 +632,16 @@ export class PosStore extends Reactive {
     // The configure parameter is available if the orderline already contains all
     // the information without having to be calculated. For example, importing a SO.
     async addLineToCurrentOrder(vals, opts = {}, configure = true) {
-        let merge = true;
-
         let order = this.get_order();
-        order.assert_editable();
-
         if (!order) {
             order = this.add_new_order();
         }
+        return await this.addLineToOrder(vals, order, opts, configure);
+    }
+
+    async addLineToOrder(vals, order, opts = {}, configure = true) {
+        let merge = true;
+        order.assert_editable();
 
         const options = {
             ...opts,
@@ -635,6 +651,9 @@ export class PosStore extends Reactive {
             merge = false;
         }
 
+        if (typeof vals.product_id == "number") {
+            vals.product_id = this.data.models["product.product"].get(vals.product_id);
+        }
         const product = vals.product_id;
 
         const values = {
@@ -859,8 +878,9 @@ export class PosStore extends Reactive {
         const line = this.data.models["pos.order.line"].create({ ...values, order_id: order });
         line.setOptions(options);
         this.selectOrderLine(order, line);
-        this.numberBuffer.reset();
-
+        if (configure) {
+            this.numberBuffer.reset();
+        }
         const selectedOrderline = order.get_selected_orderline();
         if (options.draftPackLotLines && configure) {
             selectedOrderline.setPackLotLines({
@@ -886,12 +906,16 @@ export class PosStore extends Reactive {
             this.selectOrderLine(order, order.get_last_orderline());
         }
 
-        this.numberBuffer.reset();
+        if (configure) {
+            this.numberBuffer.reset();
+        }
 
         // FIXME: Put this in an effect so that we don't have to call it manually.
         order.recomputeOrderData();
 
-        this.numberBuffer.reset();
+        if (configure) {
+            this.numberBuffer.reset();
+        }
 
         this.hasJustAddedProduct = true;
         clearTimeout(this.productReminderTimeout);
@@ -1113,7 +1137,7 @@ export class PosStore extends Reactive {
     }
 
     // There for override
-    preSyncAllOrders(orders) {}
+    async preSyncAllOrders(orders) {}
     postSyncAllOrders(orders) {}
     async syncAllOrders(options = {}) {
         const { orderToCreate, orderToUpdate } = this.getPendingOrder();
@@ -1129,7 +1153,7 @@ export class PosStore extends Reactive {
             }
 
             const context = this.getSyncAllOrdersContext(orders, options);
-            this.preSyncAllOrders(orders);
+            await this.preSyncAllOrders(orders);
 
             // Allow us to force the sync of the orders In the case of
             // pos_restaurant is usefull to get unsynced orders
@@ -1411,6 +1435,14 @@ export class PosStore extends Reactive {
     }
 
     disallowLineQuantityChange() {
+        return false;
+    }
+
+    restrictLineDiscountChange() {
+        return false;
+    }
+
+    restrictLinePriceChange() {
         return false;
     }
 
