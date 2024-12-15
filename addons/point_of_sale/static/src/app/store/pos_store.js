@@ -235,7 +235,7 @@ export class PosStore extends Reactive {
         this.config = this.data.models["pos.config"].getFirst();
         this.company = this.data.models["res.company"].getFirst();
         this.user = this.data.models["res.users"].getFirst();
-        this.currency = this.data.models["res.currency"].getFirst();
+        this.currency = this.config.currency_id;
         this.pickingType = this.data.models["stock.picking.type"].getFirst();
         this.models = this.data.models;
 
@@ -639,6 +639,7 @@ export class PosStore extends Reactive {
         if (!order) {
             order = this.add_new_order();
         }
+        this.addPendingOrder([order.id]);
         return await this.addLineToOrder(vals, order, opts, configure);
     }
 
@@ -1535,9 +1536,11 @@ export class PosStore extends Reactive {
 
         if (order) {
             await this.sendOrderInPreparation(order, cancelled);
-            order.updateLastOrderChange();
+            const getOrder = (uuid) => this.models["pos.order"].getBy("uuid", uuid);
+            getOrder(uuid).updateLastOrderChange();
             this.addPendingOrder([order.id]);
             await this.syncAllOrders();
+            getOrder(uuid).updateSavedQuantity();
         }
     }
 
@@ -1626,10 +1629,10 @@ export class PosStore extends Reactive {
 
         const printingChanges = {
             table_name: order.table_id ? order.table_id.table_number : "",
-            config_name: order.config_id.name,
+            config_name: order.config.name,
             time: order.write_date ? time : "",
             tracking_number: order.tracking_number,
-            takeaway: order.config_id.takeaway && order.takeaway,
+            takeaway: order.config.takeaway && order.takeaway,
             employee_name: order.employee_id?.name || order.user_id?.name,
             order_note: order.general_note,
             diningModeUpdate: diningModeUpdate,
@@ -1862,10 +1865,16 @@ export class PosStore extends Reactive {
 
         let existingLots = [];
         try {
-            existingLots = await this.data.call("pos.order.line", "get_existing_lots", [
-                this.company.id,
-                product.id,
-            ]);
+            existingLots = await this.data.call(
+                "pos.order.line",
+                "get_existing_lots",
+                [this.company.id, product.id],
+                {
+                    context: {
+                        config_id: this.config.id,
+                    },
+                }
+            );
             if (!canCreateLots && (!existingLots || existingLots.length === 0)) {
                 this.dialog.add(AlertDialog, {
                     title: _t("No existing serial/lot number"),
@@ -2051,14 +2060,7 @@ export class PosStore extends Reactive {
             if (this._shouldLoadOrders()) {
                 try {
                     this.setLoadingOrderState(true);
-                    const orders = await this.getServerOrders();
-                    if (orders && orders.length > 0) {
-                        const message = _t(
-                            "%s orders have been loaded from the server. ",
-                            orders.length
-                        );
-                        this.notification.add(message);
-                    }
+                    await this.getServerOrders();
                 } finally {
                     this.setLoadingOrderState(false);
                     this.showScreen("TicketScreen");
@@ -2083,6 +2085,14 @@ export class PosStore extends Reactive {
 
     getDisplayDeviceIP() {
         return this.config.proxy_ip;
+    }
+
+    isProductVariant(product) {
+        return (
+            this.models["product.product"].filter(
+                (p) => p.raw.product_tmpl_id === product.raw.product_tmpl_id
+            ).length > 1
+        );
     }
 }
 

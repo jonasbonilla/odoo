@@ -1715,7 +1715,7 @@ msgstr "Volgers"
 #. module: calendar
 #: model:ir.model.fields,field_description:calendar.field_calendar_event__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Relaties)"
+msgstr "Volgers (Contacten)"
 
 #. module: calendar
 #: model:ir.model.fields.selection,name:calendar.selection__calendar_event__end_type__forever
@@ -2276,7 +2276,7 @@ msgstr "Deelnemer"
 #. module: calendar
 #: model:ir.model.fields,help:calendar.field_calendar_event__partner_id
 msgid "Partner-related data of the user"
-msgstr "Relatie gerelateerde gegevens van de gebruiker"
+msgstr "Contact gerelateerde gegevens van de gebruiker"
 
 #. module: calendar
 #: model:ir.model.fields,help:calendar.field_calendar_event__privacy

@@ -724,8 +724,12 @@ msgstr ""
 #. module: hr_holidays
 #. odoo-python
 #: code:addons/hr_holidays/models/hr_leave_allocation.py:0
-msgid "Allocation must be confirmed (\"To Approve\") in order to approve it."
-msgstr "Se debe confirmar la asignación (\"A aprobar\") para aprobarla."
+msgid ""
+"Allocation must be confirmed (\"To Approve\") or validated once (\"Second "
+"Approval\") in order to approve it."
+msgstr ""
+"La asignación debe ser confirmada (“A aprobar”) o validada una vez (“Segunda"
+" aprobación”) para poder aprobarla."
 
 #. module: hr_holidays
 #. odoo-python

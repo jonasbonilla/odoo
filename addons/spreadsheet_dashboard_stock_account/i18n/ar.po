@@ -25,19 +25,19 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "3D printing pen"
-msgstr ""
+msgstr "قلم الطباعة ثلاثية الأبعاد "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "447 out of 1,856"
-msgstr ""
+msgstr "447 من أصل 1,856 "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "76,437 out of 188,071"
-msgstr ""
+msgstr "76,437 من أصل 188,071 "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
@@ -61,7 +61,7 @@ msgstr "الكمية المتوفرة "
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "Available Value"
-msgstr ""
+msgstr "القيمة المتوفرة "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
@@ -91,13 +91,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "Bluetooth-enabled LED light strip"
-msgstr ""
+msgstr "شريط إضاءة LED مزوّد بتقنية البلوتوث "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "Compact espresso machine"
-msgstr ""
+msgstr "آلة صنع قهوة الاسبريسو الصغيرة "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
@@ -109,13 +109,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "Electric standing desk"
-msgstr ""
+msgstr "مكتب واقف كهربائي "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "Ergonomic office chair"
-msgstr ""
+msgstr "كرسي مكتبي مريح "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
@@ -129,7 +129,7 @@ msgstr "المؤشرات الرئيسية للأداء "
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_dashboard.json:0
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "Lines with negative stock"
-msgstr ""
+msgstr "البنود التي تحتوي على مخزون سالب "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
@@ -147,13 +147,13 @@ msgstr "رقم الدفعة/الرقم التسلسلي "
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "Post-production"
-msgstr ""
+msgstr "بعد الإنتاج "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "Pre-production"
-msgstr ""
+msgstr "قبل الإنتاج "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
@@ -189,7 +189,7 @@ msgstr "الكمية المحجوزة"
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "Reserved Value"
-msgstr ""
+msgstr "القيمة المحجوزة "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
@@ -208,26 +208,26 @@ msgstr ""
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_dashboard.json:0
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "Share reserved stock Qty"
-msgstr ""
+msgstr "مشاركة الكميات المحجوزة "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_dashboard.json:0
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "Share reserved stock Value"
-msgstr ""
+msgstr "مشاركة قيمة المخزون المحجوز "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "Smart air purifier"
-msgstr ""
+msgstr "منقي الهواء الذكي "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "Solar-powered phone charger"
-msgstr ""
+msgstr "شاحن هاتف يعمل بالطاقة الشمسية "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
@@ -253,7 +253,7 @@ msgstr "إجمالي قيمة المخزون "
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "WH/Output"
-msgstr ""
+msgstr "المستودع / المخرجات "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
@@ -276,10 +276,10 @@ msgstr "المستودع "
 #. module: spreadsheet_dashboard_stock_account
 #: model:spreadsheet.dashboard,name:spreadsheet_dashboard_stock_account.spreadsheet_dashboard_warehouse_metrics
 msgid "Warehouse Metrics"
-msgstr ""
+msgstr "مقاييس المستودع "
 
 #. module: spreadsheet_dashboard_stock_account
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock_account/data/files/warehouse_metrics_sample_dashboard.json:0
 msgid "Waterproof hiking backpack"
-msgstr ""
+msgstr "حقيبة ظهر مضادة للماء للمشي على الأقدام "

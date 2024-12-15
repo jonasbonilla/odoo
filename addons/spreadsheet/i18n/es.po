@@ -7,8 +7,8 @@
 # Martin Trigaux, 2024
 # marcescu, 2024
 # Fernanda Alvarez, 2024
-# Larissa Manderfeld, 2024
 # Wil Odoo, 2024
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 07:49+0000\n"
 "PO-Revision-Date: 2024-09-25 09:41+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1042,7 +1042,7 @@ msgstr ""
 msgid ""
 "An range with dates corresponding to the cash flows in cashflow_amounts."
 msgstr ""
-"Un rango con fechas correspondientes a los flujos de caja en "
+"Un rango con fechas correspondientes a los flujos de efectivo en "
 "cashflow_amounts."
 
 #. module: spreadsheet
@@ -4351,7 +4351,7 @@ msgstr "Tipo de interés de una inversión de anualidad."
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Internal rate of return given non-periodic cash flows."
 msgstr ""
-"Tasa interna de rendimiento teniendo en cuenta los flujos de caja no "
+"Tasa interna de rendimiento teniendo en cuenta los flujos de efectivo no "
 "periódicos."
 
 #. module: spreadsheet
@@ -4359,7 +4359,7 @@ msgstr ""
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Internal rate of return given periodic cashflows."
 msgstr ""
-"Tasa interna de rendimiento teniendo en cuenta los flujos de caja "
+"Tasa interna de rendimiento teniendo en cuenta los flujos de efectivo "
 "periódicos."
 
 #. module: spreadsheet
@@ -6542,7 +6542,7 @@ msgstr "Septiembre"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.xml:0
 msgid "Serie type"
-msgstr ""
+msgstr "Tipo de serie"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -6877,7 +6877,7 @@ msgstr "Gráfico de barras apilado"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Stacked column chart"
-msgstr ""
+msgstr "Gráfico de columna apilado"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -8626,8 +8626,8 @@ msgid ""
 "The net present value of an investment based on a series of periodic cash "
 "flows and a discount rate."
 msgstr ""
-"El valor actual neto de una inversión basado en una serie de flujos de caja "
-"periódicos y un tipo de descuento."
+"El valor actual actual de una inversión basado en una serie de flujos de "
+"efectivo periódicos y una tasa de descuento."
 
 #. module: spreadsheet
 #. odoo-javascript

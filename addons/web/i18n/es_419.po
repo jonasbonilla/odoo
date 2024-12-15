@@ -3,8 +3,8 @@
 # 	* web
 # 
 # Translators:
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Wil Odoo, 2024
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Fernanda Alvarez, 2024
 # 
 msgid ""
@@ -2366,7 +2366,7 @@ msgstr "Herramientas de desarrollador"
 #. odoo-javascript
 #: code:addons/web/static/src/views/list/list_renderer.js:0
 msgid "Different currencies cannot be aggregated"
-msgstr "No se pueden agregar distintas divisas"
+msgstr "No puede agregar distintas monedas"
 
 #. module: web
 #. odoo-javascript
@@ -4555,7 +4555,7 @@ msgstr "No se encontraron comandos"
 #. odoo-javascript
 #: code:addons/web/static/src/views/list/list_renderer.js:0
 msgid "No currency provided"
-msgstr "No se proporcionó una divisa"
+msgstr "No proporcionó una moneda"
 
 #. module: web
 #. odoo-javascript
@@ -6462,7 +6462,7 @@ msgstr "Tauro"
 #: model_terms:ir.ui.view,arch_db:web.external_layout_striped
 #: model_terms:ir.ui.view,arch_db:web.external_layout_wave
 msgid "Tax ID"
-msgstr "NIF"
+msgstr "Número de identificación fiscal"
 
 #. module: web
 #. odoo-javascript

@@ -147,7 +147,7 @@ msgstr "16,2 kg"
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.certification_report_view_general
 msgid "2023-08-18"
-msgstr "18-08-2023"
+msgstr "2023-08-18"
 
 #. module: survey
 #: model:survey.question.answer,value:survey.survey_demo_burger_quiz_p2_q1_sug2
@@ -384,9 +384,9 @@ msgid ""
 "<i class=\"fa fa-exclamation-triangle\"/> It is currently not possible to "
 "pass this assessment because no question is configured to give any points."
 msgstr ""
-"<html><i class=\"fa fa-exclamation-triangle\"/>Het is momenteel niet "
-"mogelijk om voor deze beoordeling te slagen, omdat er geen vraag is "
-"geconfigureerd die punten oplevert.</i>"
+"<i class=\"fa fa-exclamation-triangle\"/>Het is momenteel niet mogelijk om "
+"voor deze beoordeling te slagen, omdat er geen vraag is geconfigureerd die "
+"punten oplevert."
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_fill_form_done
@@ -526,8 +526,9 @@ msgid ""
 "                                <i class=\"fa fa-trash me-1\"/>Remove all filters\n"
 "                            </span>"
 msgstr ""
-"<span class=\"o_survey_results_topbar_clear_filters text-primary\"><i "
-"class=\"fa fa-trash me-1\"/>Verwijder alle filters</i></span>"
+"<span class=\"o_survey_results_topbar_clear_filters text-primary\">\n"
+"<i class=\"fa fa-trash me-1\"/>Verwijder alle filters\n"
+"</span>"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.user_input_session_manage_content
@@ -1976,7 +1977,7 @@ msgstr "Tests uitsluiten"
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_invite__existing_partner_ids
 msgid "Existing Partner"
-msgstr "Bestaande relatie"
+msgstr "Bestaande contact"
 
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_invite__existing_emails
@@ -2050,7 +2051,7 @@ msgstr "Volgers"
 #: model:ir.model.fields,field_description:survey.field_survey_survey__message_partner_ids
 #: model:ir.model.fields,field_description:survey.field_survey_user_input__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Relaties)"
+msgstr "Volgers (Contacten)"
 
 #. module: survey
 #: model:ir.model.fields,help:survey.field_survey_survey__activity_type_icon
@@ -3551,7 +3552,7 @@ msgstr "Deelnames"
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_user_input_view_search
 msgid "Partner"
-msgstr "Relatie"
+msgstr "Contact"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_survey_view_kanban
@@ -3562,7 +3563,7 @@ msgstr "Geslaagd"
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_results_filters
 msgid "Passed and Failed"
-msgstr "Geslaagd en gefaald"
+msgstr "Geslaagd en mislukt"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_results_filters
@@ -5632,7 +5633,7 @@ msgid ""
 "You cannot delete questions from surveys \"%(survey_names)s\" while live "
 "sessions are in progress."
 msgstr ""
-"Je kan de vragen van de enquêtes \"%(survey_names)s\"  niet verwijderen "
+"Je kunt de vragen van de enquêtes \"%(survey_names)s\"  niet verwijderen "
 "tijdens live sessies."
 
 #. module: survey

@@ -5,8 +5,8 @@
 # Translators:
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
-# Manon Rondou, 2024
 # allanot nicolas <n.allanot@free.fr>, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 08:39+0000\n"
 "PO-Revision-Date: 2024-09-25 09:42+0000\n"
-"Last-Translator: allanot nicolas <n.allanot@free.fr>, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -70,16 +70,16 @@ msgid ""
 " * Done: The transfer has been processed.\n"
 " * Cancelled: The transfer has been cancelled."
 msgstr ""
-" * Brouillon: Le transfert n'est pas encore confirmé. La réservation ne s'applique pas.\n"
-" * En attente d'une autre opération: Ce transfert est en attente d'une autre opération avant d'être prêt.\n"
-" * En attente: Ce transfert est en attente de la disponibilité de certains articles.\n"
-"(a) La politique d'envoi est \"Dès que possible\": aucun n'article n'a pu être réservé.\n"
-"(b) La politique d'envoi est \"Quand tous les articles sont prêts\": tous les articles n'ont pu être réservés.\n"
-" * Prêt: Le transfert est prêt à être réalisé.\n"
-"(a) (a) La politique d'envoi est \"Dès que possible\": au moins un article a pu être réservé.\n"
-"(b) La politique d'envoi est \"Quand tous les articles sont prêts\": tous les articles ont pu être réservés.\n"
-" * Fait: Le transfert a pu être réalisé.\n"
-" * Annulé: Le transfert a été annulé."
+" * Brouillon : Le transfert n'est pas encore confirmé. La réservation ne s'applique pas.\n"
+" * En attente d'une autre opération : Ce transfert est en attente d'une autre opération avant d'être prêt.\n"
+" * En attente : Ce transfert est en attente de la disponibilité de certains articles.\n"
+"(a) La politique d'envoi est \"Dès que possible\" : aucun n'article n'a pu être réservé.\n"
+"(b) La politique d'envoi est \"Quand tous les articles sont prêts\" : tous les articles n'ont pu être réservés.\n"
+" * Prêt : Le transfert est prêt à être réalisé.\n"
+"(a) (a) La politique d'envoi est \"Dès que possible\" : au moins un article a pu être réservé.\n"
+"(b) La politique d'envoi est \"Quand tous les articles sont prêts\" : tous les articles ont pu être réservés.\n"
+" * Terminé : Le transfert a pu être réalisé.\n"
+" * Annulé : Le transfert a été annulé."
 
 #. module: stock
 #. odoo-python
@@ -339,7 +339,7 @@ msgstr ""
 "* En attente d'un autre mouvement : Un mouvement de stock lié doit être effectué avec celui-ci.\n"
 "* En attente de disponibilité : Le mouvement de stock est confirmé, mais le produit ne peut pas être réservé.\n"
 "* Disponible : Le produit du mouvement de stock est réservé.\n"
-"* Fait : Le produit a été transféré et le transfert a été confirmé."
+"* Terminé : Le produit a été transféré et le transfert a été confirmé."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location__usage
@@ -776,20 +776,20 @@ msgid ""
 "            </strong>"
 msgstr ""
 "<strong>\n"
-"                La ligne de mouvement fait a été corrigée.\n"
+"                La ligne de mouvement \"terminé\" a été corrigée.\n"
 "            </strong>"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_delivery_document
 #: model_terms:ir.ui.view,arch_db:stock.report_picking
 msgid "<strong>Customer Address</strong>"
-msgstr ""
+msgstr "<strong>Adresse du client</strong>"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_delivery_document
 #: model_terms:ir.ui.view,arch_db:stock.report_picking
 msgid "<strong>Delivery Address</strong>"
-msgstr ""
+msgstr "<strong>Adresse de livraison</strong>"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_picking
@@ -831,7 +831,7 @@ msgstr "<strong>Qté min :</strong>"
 #: model_terms:ir.ui.view,arch_db:stock.report_delivery_document
 #: model_terms:ir.ui.view,arch_db:stock.report_picking
 msgid "<strong>Order</strong>"
-msgstr ""
+msgstr "<strong>Commande</strong>"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_package_barcode
@@ -873,7 +873,7 @@ msgstr "<strong>Date planifiée</strong>"
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_delivery_document
 msgid "<strong>Shipping Date</strong>"
-msgstr ""
+msgstr "<strong>Date d'expédition</strong>"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_delivery_document
@@ -910,7 +910,7 @@ msgstr "<strong>Adresse du fournisseur</strong>"
 #: model_terms:ir.ui.view,arch_db:stock.report_delivery_document
 #: model_terms:ir.ui.view,arch_db:stock.report_picking
 msgid "<strong>Warehouse Address</strong>"
-msgstr ""
+msgstr "<strong>Adresse de l'entrepôt</strong>"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_picking
@@ -2533,7 +2533,7 @@ msgstr "Date"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking__search_date_category
 msgid "Date Category"
-msgstr ""
+msgstr "Catégorie Date"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_move_form
@@ -3204,7 +3204,7 @@ msgstr "Documentation"
 #: model_terms:ir.ui.view,arch_db:stock.stock_move_line_view_search
 #: model_terms:ir.ui.view,arch_db:stock.view_move_search
 msgid "Done"
-msgstr "Fait"
+msgstr "Terminé"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_move_line_form
@@ -3215,7 +3215,7 @@ msgstr "Fait par"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move__product_packaging_quantity
 msgid "Done Packaging Quantity"
-msgstr "Quantité de conditionnements faits"
+msgstr "Quantité de conditionnements terminés"
 
 #. module: stock
 #: model:ir.model.fields.selection,name:stock.selection__stock_package_level__state__draft
@@ -5761,8 +5761,8 @@ msgid ""
 "No products to return (only lines in Done state and not fully returned yet "
 "can be returned)."
 msgstr ""
-"Pas de produits à retourner (seules les lignes avec le statut \"fait\" et "
-"pas complètement retournées peuvent être renvoyées). "
+"Pas de produits à retourner (seules les lignes avec le statut \"terminé\" et"
+" pas complètement retournées peuvent être renvoyées). "
 
 #. module: stock
 #: model_terms:ir.actions.act_window,help:stock.action_putaway_tree
@@ -9231,7 +9231,7 @@ msgstr "Le premier dans la séquence est celui par défaut."
 #. odoo-python
 #: code:addons/stock/wizard/product_replenish.py:0
 msgid "The following replenishment order have been generated"
-msgstr "L'ordre de réapprovisionnement suivant a été généré"
+msgstr "L'ordre de réassort suivant a été généré"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_product_replenish
@@ -9683,7 +9683,8 @@ msgstr "Cet enregistrement existe déjà."
 #: code:addons/stock/report/report_stock_reception.py:0
 msgid "This report cannot be used for done and not done %s at the same time"
 msgstr ""
-"Ce rapport ne peut être utilisé à la fois pour des %s faits et non faits "
+"Ce rapport ne peut être utilisé à la fois pour des %s terminés et non "
+"terminés "
 
 #. module: stock
 #. odoo-python
@@ -11017,7 +11018,7 @@ msgstr ""
 "vos entrepôts et qui définissent les flux de vos produits.\n"
 "Ces\n"
 "routes peuvent être assignées à des produits, des catégories de produits ou être fixées \n"
-"dans l'approvisionnement ou les bons de commande."
+"dans l'approvisionnement ou les commandes clients."
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.stock_inventory_conflict_form_view
@@ -11159,8 +11160,8 @@ msgid ""
 "You cannot cancel a stock move that has been set to 'Done'. Create a return "
 "in order to reverse the moves which took place."
 msgstr ""
-"Vous ne pouvez pas annuler un transfert marqué comme 'Fait'. Créez un retour"
-" pour inverser les mouvements qui ont été effectués."
+"Vous ne pouvez pas annuler un transfert marqué comme \"Terminé\". Créez un "
+"retour pour inverser les mouvements qui ont été effectués."
 
 #. module: stock
 #. odoo-python
@@ -11175,7 +11176,7 @@ msgstr ""
 #: code:addons/stock/models/stock_picking.py:0
 msgid "You cannot change the Scheduled Date on a done or cancelled transfer."
 msgstr ""
-"Vous ne pouvez modifier la date prévue sur un transfert qui est fait ou "
+"Vous ne pouvez modifier la date prévue sur un transfert qui est terminé ou "
 "annulé."
 
 #. module: stock
@@ -11185,7 +11186,7 @@ msgid ""
 "You cannot change the UoM for a stock move that has been set to 'Done'."
 msgstr ""
 "Vous ne pouvez pas changer l'UdM pour un mouvement de stock qui a déjà été "
-"fait."
+"terminé."
 
 #. module: stock
 #. odoo-python
@@ -11314,8 +11315,8 @@ msgstr ""
 #: code:addons/stock/models/stock_move.py:0
 msgid "You cannot split a stock move that has been set to 'Done' or 'Cancel'."
 msgstr ""
-"Vous ne pouvez pas diviser un mouvement de stock qui est défini sur 'Fait' "
-"ou 'Annuler'."
+"Vous ne pouvez pas diviser un mouvement de stock qui est défini sur "
+"'Terminé' ou 'Annuler'."
 
 #. module: stock
 #. odoo-python
@@ -11331,7 +11332,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/stock/models/stock_move.py:0
 msgid "You cannot unreserve a stock move that has been set to 'Done'."
-msgstr "Vous ne pouvez pas décommander un mouvement de stock fait."
+msgstr "Vous ne pouvez pas décommander un mouvement de stock terminé."
 
 #. module: stock
 #. odoo-python
@@ -11402,7 +11403,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/stock/wizard/stock_picking_return.py:0
 msgid "You may only return Done pickings."
-msgstr "Vous ne pouvez renvoyer que des transferts faits."
+msgstr "Vous ne pouvez renvoyer que des transferts terminés."
 
 #. module: stock
 #. odoo-python

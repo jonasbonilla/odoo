@@ -712,8 +712,10 @@ msgstr "휴가를 승인하려면 할당을 \"승인 대기\" 또는 \"2차 승�
 #. module: hr_holidays
 #. odoo-python
 #: code:addons/hr_holidays/models/hr_leave_allocation.py:0
-msgid "Allocation must be confirmed (\"To Approve\") in order to approve it."
-msgstr "휴가를 승인하려면 휴가 자격이 확인(\"승인 대기\") 단계여야 합니다."
+msgid ""
+"Allocation must be confirmed (\"To Approve\") or validated once (\"Second "
+"Approval\") in order to approve it."
+msgstr "할당된 휴가를 승인하려면 확인 (\"승인 대기\") 또는 한 번 확인 (\"2차 승인\") 단계여야 합니다."
 
 #. module: hr_holidays
 #. odoo-python
@@ -2266,7 +2268,7 @@ msgstr "최대 허용일수"
 #. module: hr_holidays
 #: model:ir.model.fields,field_description:hr_holidays.field_hr_leave_type__max_allowed_negative
 msgid "Maximum Excess Amount"
-msgstr "최대 초과 금액"
+msgstr "최대 초과 한도"
 
 #. module: hr_holidays
 #: model:ir.model.fields,help:hr_holidays.field_hr_leave_type__virtual_remaining_leaves

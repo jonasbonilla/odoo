@@ -289,7 +289,7 @@ msgid ""
 "title=\"Done\"/><span class=\"d-none d-md-inline\"> Done</span>"
 msgstr ""
 "<i class=\"fa fa-fw fa-check\" role=\"img\" aria-label=\"Done\" "
-"title=\"Done\"/><span class=\"d-none d-md-inline\"> Fait</span>"
+"title=\"Done\"/><span class=\"d-none d-md-inline\"> Terminé</span>"
 
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.purchase_order_portal_content
@@ -1343,7 +1343,7 @@ msgstr "Domaine"
 #. module: purchase
 #: model:ir.model.fields.selection,name:purchase.selection__purchase_report__state__done
 msgid "Done"
-msgstr "Fait"
+msgstr "Terminé"
 
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_res_company__po_double_validation_amount
@@ -2475,7 +2475,7 @@ msgstr "Avertissement bon de commande"
 #: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_filter
 #: model_terms:ir.ui.view,arch_db:purchase.view_purchase_order_search
 msgid "Purchase Orders"
-msgstr "Bons de commande"
+msgstr "Bons de commande fournisseur"
 
 #. module: purchase
 #: model:ir.model,name:purchase.model_purchase_report
@@ -2769,7 +2769,7 @@ msgid ""
 "Reference of the document that generated this purchase order request (e.g. a"
 " sales order)"
 msgstr ""
-"Référence du document qui a généré cette demande de bon de commande (par ex."
+"Référence du document qui a généré cette demande de commande client (par ex."
 " une commande client)"
 
 #. module: purchase
@@ -2792,7 +2792,7 @@ msgstr "Rappel confirmé"
 #. module: purchase
 #: model:ir.model,name:purchase.model_ir_actions_report
 msgid "Report Action"
-msgstr "Signaler l'action"
+msgstr "Action de rapport"
 
 #. module: purchase
 #: model:ir.ui.menu,name:purchase.purchase_report_main

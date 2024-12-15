@@ -1195,6 +1195,12 @@ msgstr ""
 "remoto."
 
 #. module: hr
+#. odoo-python
+#: code:addons/hr/models/hr_employee.py:0
+msgid "Divorced"
+msgstr "Divorciado(a)"
+
+#. module: hr
 #: model:ir.model.fields.selection,name:hr.selection__hr_employee__certificate__doctor
 msgid "Doctor"
 msgstr "Doutor"
@@ -1988,6 +1994,12 @@ msgid "Lead the entire sales cycle"
 msgstr "Lidere todo o ciclo de vendas"
 
 #. module: hr
+#. odoo-python
+#: code:addons/hr/models/hr_employee.py:0
+msgid "Legal Cohabitant"
+msgstr "União estável"
+
+#. module: hr
 #: model_terms:ir.actions.act_window,help:hr.action_hr_job
 msgid "Let's create a job position."
 msgstr "Vamos criar uma oportunidade de emprego"
@@ -2080,6 +2092,12 @@ msgstr "Estado civil"
 #: model:hr.job,name:hr.job_marketing
 msgid "Marketing and Community Manager"
 msgstr "Gerente de comunidade e marketing"
+
+#. module: hr
+#. odoo-python
+#: code:addons/hr/models/hr_employee.py:0
+msgid "Married"
+msgstr "Casado(a)"
 
 #. module: hr
 #: model:ir.model.fields.selection,name:hr.selection__hr_employee__certificate__master
@@ -2999,6 +3017,12 @@ msgid "Show employees"
 msgstr "Mostrar funcionários"
 
 #. module: hr
+#. odoo-python
+#: code:addons/hr/models/hr_employee.py:0
+msgid "Single"
+msgstr "Solteiro(a)"
+
+#. module: hr
 #: model:ir.model.fields,field_description:hr.field_res_config_settings__module_hr_skills
 msgid "Skills Management"
 msgstr "Gestão de habilidades"
@@ -3175,8 +3199,12 @@ msgstr "Temporário"
 #. module: hr
 #. odoo-python
 #: code:addons/hr/models/hr_employee.py:0
-msgid "The Badge ID must be a sequence of digits."
-msgstr "O ID do crachá deve ser uma sequência de dígitos."
+msgid ""
+"The Badge ID must be alphanumeric without any accents and no longer than 18 "
+"characters."
+msgstr ""
+"O ID do crachá deve ser alfanumérico, sem acentos, e não deve ter mais de 18"
+" caracteres."
 
 #. module: hr
 #: model:ir.model.constraint,message:hr.constraint_hr_employee_barcode_uniq
@@ -3528,6 +3556,12 @@ msgid ""
 msgstr ""
 "Se o funcionário é membro do departamento do usuário ativo ou do "
 "departamento subordinado."
+
+#. module: hr
+#. odoo-python
+#: code:addons/hr/models/hr_employee.py:0
+msgid "Widower"
+msgstr "Viúvo"
 
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_hr_employee__address_id

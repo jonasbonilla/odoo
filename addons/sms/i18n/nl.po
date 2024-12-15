@@ -460,7 +460,7 @@ msgstr "Dupliceren"
 #. module: sms
 #: model_terms:ir.ui.view,arch_db:sms.mail_resend_message_view_form
 msgid "Edit Partners"
-msgstr "Relaties bewerken"
+msgstr "Contacten bewerken"
 
 #. module: sms
 #: model:ir.model,name:sms.model_mail_thread
@@ -529,7 +529,7 @@ msgstr "Volgers"
 #. module: sms
 #: model:ir.model.fields,field_description:sms.field_res_partner__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Relaties)"
+msgstr "Volgers (Contacten)"
 
 #. module: sms
 #. odoo-python
@@ -912,7 +912,7 @@ msgstr "Uitgaande SMS"
 #. module: sms
 #: model:ir.model.fields,field_description:sms.field_sms_resend_recipient__partner_id
 msgid "Partner"
-msgstr "Relatie"
+msgstr "Contact"
 
 #. module: sms
 #: model:ir.model.fields,field_description:sms.field_res_partner__phone_sanitized_blacklisted
@@ -1003,7 +1003,7 @@ msgstr "Ontvangers (nummers)"
 #. module: sms
 #: model:ir.model.fields,field_description:sms.field_sms_composer__recipient_single_description
 msgid "Recipients (Partners)"
-msgstr "Ontvangers (relaties)"
+msgstr "Ontvangers (contacten)"
 
 #. module: sms
 #: model:ir.model.fields,field_description:sms.field_sms_template_preview__resource_ref

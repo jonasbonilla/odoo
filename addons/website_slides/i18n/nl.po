@@ -1091,12 +1091,12 @@ msgstr ""
 #. module: website_slides
 #: model:ir.model.constraint,message:website_slides.constraint_slide_channel_partner_channel_partner_uniq
 msgid "A partner membership to a channel must be unique!"
-msgstr "Een partnerlidmaatschap van een kanaal moet uniek zijn!"
+msgstr "Een lidmaatschap van een kanaal moet uniek zijn!"
 
 #. module: website_slides
 #: model:ir.model.constraint,message:website_slides.constraint_slide_slide_partner_slide_partner_uniq
 msgid "A partner membership to a slide must be unique!"
-msgstr "Een partnerlidmaatschap van een slide moet uniek zijn!"
+msgstr "Een lidmaatschap van een slide moet uniek zijn!"
 
 #. module: website_slides
 #: model:ir.model.constraint,message:website_slides.constraint_slide_slide_resource_check_file_type
@@ -1783,7 +1783,7 @@ msgstr "Kanaal"
 #. module: website_slides
 #: model:ir.model,name:website_slides.model_slide_channel_partner
 msgid "Channel / Partners (Members)"
-msgstr "Kanaal / Relaties (leden)"
+msgstr "Kanaal / Contacten (leden)"
 
 #. module: website_slides
 #: model:ir.model,name:website_slides.model_slide_channel_invite
@@ -2097,7 +2097,7 @@ msgstr ""
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.slides_home_user_profile_small
 msgid "Congratulations, you have reached the last rank!"
-msgstr "Gefeliciteerd, je hebt de laatste rang bereikt!"
+msgstr "Gefeliciteerd, je hebt de hoogste rang bereikt!"
 
 #. module: website_slides
 #. odoo-javascript
@@ -2293,7 +2293,7 @@ msgstr "Cursus"
 #. module: website_slides
 #: model:ir.model.fields.selection,name:website_slides.selection__slide_channel__visibility__members
 msgid "Course Attendees"
-msgstr "Deelnemers Cursus"
+msgstr "Deelnemers cursus"
 
 #. module: website_slides
 #: model:ir.model.fields,field_description:website_slides.field_res_partner__slide_channel_count
@@ -2948,7 +2948,7 @@ msgstr "Inschrijvingsbeleid"
 #. module: website_slides
 #: model:ir.model.fields,field_description:website_slides.field_slide_channel_invite__enroll_mode
 msgid "Enroll partners"
-msgstr "Relaties inschrijven"
+msgstr "Contacten inschrijven"
 
 #. module: website_slides
 #: model:ir.model.fields,field_description:website_slides.field_slide_channel__channel_partner_ids
@@ -2958,7 +2958,7 @@ msgstr "Informatie over ingeschreven deelnemers"
 #. module: website_slides
 #: model:ir.model.fields,help:website_slides.field_slide_channel__partner_ids
 msgid "Enrolled partners in the course"
-msgstr "Ingeschreven relaties voor deze cursus"
+msgstr "Ingeschreven contacten voor deze cursus"
 
 #. module: website_slides
 #. odoo-javascript
@@ -3062,7 +3062,7 @@ msgstr "Filter &amp; sorteer"
 #. odoo-javascript
 #: code:addons/website_slides/static/src/js/tours/slides_tour.js:0
 msgid "Finally you can click here to enjoy your content in fullscreen"
-msgstr "Je kan hier klikken om van je inhoud op volledig scherm te genieten"
+msgstr "Je kunt hier klikken om van je inhoud op volledig scherm te genieten"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.course_join
@@ -3130,7 +3130,7 @@ msgstr "Volgers"
 #: model:ir.model.fields,field_description:website_slides.field_slide_channel__message_partner_ids
 #: model:ir.model.fields,field_description:website_slides.field_slide_slide__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Relaties)"
+msgstr "Volgers (Contacten)"
 
 #. module: website_slides
 #: model:ir.model.fields,help:website_slides.field_slide_channel__activity_type_icon
@@ -4568,7 +4568,7 @@ msgstr "Per cursus kan slechts één recensie worden geplaatst."
 #. module: website_slides
 #: model:ir.model.fields.selection,name:website_slides.selection__slide_channel__enroll__public
 msgid "Open"
-msgstr "Openen"
+msgstr "Open"
 
 #. module: website_slides
 #. odoo-python
@@ -4613,12 +4613,12 @@ msgstr "Betaalde cursussen"
 #: model:ir.model.fields,field_description:website_slides.field_slide_channel_partner__partner_id
 #: model:ir.model.fields,field_description:website_slides.field_slide_slide_partner__partner_id
 msgid "Partner"
-msgstr "Relatie"
+msgstr "Contact"
 
 #. module: website_slides
 #: model:ir.model.fields,field_description:website_slides.field_slide_channel__partner_has_new_content
 msgid "Partner Has New Content"
-msgstr "Relatie heeft nieuwe inhoud"
+msgstr "Contact heeft nieuwe inhoud"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.slide_channel_view_pivot
@@ -5501,7 +5501,7 @@ msgstr "Dia"
 #. module: website_slides
 #: model:ir.model,name:website_slides.model_slide_slide_partner
 msgid "Slide / Partner decorated m2m"
-msgstr "Slide / Relatie decorated m2m"
+msgstr "Slide / Contact decorated m2m"
 
 #. module: website_slides
 #: model:ir.model.fields,field_description:website_slides.field_slide_slide__slide_icon_class
@@ -6517,7 +6517,7 @@ msgid ""
 "Whether invited partners will be added as enrolled. Otherwise, they will be "
 "added as invited."
 msgstr ""
-"Of uitgenodigde relaties worden toegevoegd als ingeschreven. Anders worden "
+"Of uitgenodigde contacten worden toegevoegd als ingeschreven. Anders worden "
 "ze toegevoegd als uitgenodigd."
 
 #. module: website_slides
@@ -6682,7 +6682,7 @@ msgid ""
 "You cannot mark a slide quiz as completed if you are not among its members "
 "or it is unpublished."
 msgstr ""
-"Je kan een diaquiz niet als voltooid markeren als je geen lid bent of als "
+"Je kunt een diaquiz niet als voltooid markeren als je geen lid bent of als "
 "hij niet gepubliceerd is."
 
 #. module: website_slides
@@ -6692,7 +6692,7 @@ msgid ""
 "You cannot mark a slide quiz as not completed if you are not among its "
 "members or it is unpublished."
 msgstr ""
-"Je kan een diaquiz niet als niet voltooid markeren als je geen lid bent of "
+"Je kunt een diaquiz niet als niet voltooid markeren als je geen lid bent of "
 "als hij niet gepubliceerd is."
 
 #. module: website_slides
@@ -6729,7 +6729,7 @@ msgstr "Je hebt niet genoeg karma om te stemmen"
 #. odoo-javascript
 #: code:addons/website_slides/static/src/js/public/components/slide_quiz_finish_dialog/slide_quiz_finish_dialog.xml:0
 msgid "You gained"
-msgstr "Je hebt gekregen"
+msgstr "Je verdiende"
 
 #. module: website_slides
 #. odoo-javascript

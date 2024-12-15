@@ -227,7 +227,7 @@ msgstr "<strong>Resterende tijd op verkooporder: </strong>"
 #. module: sale_timesheet
 #: model_terms:ir.ui.view,arch_db:sale_timesheet.project_update_default_description
 msgid "<u>Profitability</u>"
-msgstr "<je>Winstgevendheid</je>"
+msgstr "<u>Winstgevendheid</u>"
 
 #. module: sale_timesheet
 #: model_terms:hr.job,website_description:sale_timesheet.job_engineer
@@ -429,7 +429,7 @@ msgstr "Kies de verkooporder om te factureren"
 #. module: sale_timesheet
 #: model:ir.model.fields,field_description:sale_timesheet.field_account_analytic_line__commercial_partner_id
 msgid "Commercial Partner"
-msgstr "Commerciële relatie"
+msgstr "Commerciële contact"
 
 #. module: sale_timesheet
 #: model:ir.model,name:sale_timesheet.model_res_config_settings

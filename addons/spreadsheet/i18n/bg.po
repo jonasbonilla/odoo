@@ -17,6 +17,8 @@
 # Martin Trigaux, 2024
 # aleksandar ivanov, 2024
 # Maria Boyadjieva <marabo2000@gmail.com>, 2024
+# Veselina Slavkova, 2024
+# Margarita Katzeva, 2024
 # Petko Karamotchev, 2024
 # 
 msgid ""
@@ -4432,7 +4434,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/helpers/constants.js:0
 msgid "Last 7 Days"
-msgstr ""
+msgstr "Последните 7 дни"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -4567,7 +4569,7 @@ msgstr "Линк"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.xml:0
 msgid "Link URL"
-msgstr ""
+msgstr "URL адрес на връзката"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -5621,7 +5623,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.xml:0
 msgid "Progress bar"
-msgstr ""
+msgstr "Лента за напредък"
 
 #. module: spreadsheet
 #. odoo-javascript

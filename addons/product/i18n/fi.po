@@ -32,6 +32,8 @@
 # Svante <svante@svante.fi>, 2024
 # Antti Oksman <antti.oksman@web-veistamo.fi>, 2024
 # Martin Trigaux, 2024
+# Camille Dantinne <cmd@odoo.com>, 2024
+# Jessica Jakara, 2024
 # Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
@@ -179,7 +181,7 @@ msgstr "1 vuosi"
 #. module: product
 #: model:product.attribute.value,name:product.pav_warranty
 msgid "1 year warranty extension"
-msgstr ""
+msgstr "takuun pidennys vuodeksi"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.report_packagingbarcode
@@ -563,7 +565,7 @@ msgstr "Kaikki tiedostot lähetetty"
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_pricelist_item_form_view
 msgid "All products"
-msgstr ""
+msgstr "Kaikki tuotteet"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_pricelist_item_form_view
@@ -840,7 +842,7 @@ msgstr "Valitse arkin asettelu tarrojen tulostamista varten"
 #. module: product
 #: model:product.attribute.value,name:product.pav_cleaning_kit
 msgid "Cleaning kit"
-msgstr ""
+msgstr "Siivoustarvikepaketti"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_variant_easy_edit_view
@@ -896,7 +898,7 @@ msgstr "Yhdistelmävalinnat"
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_combo__combo_item_ids
 msgid "Combo Item"
-msgstr ""
+msgstr "Yhdistelmätuote"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_combo__base_price
@@ -1466,7 +1468,7 @@ msgstr "Lisätiedot"
 #. module: product
 #: model:product.attribute,name:product.pa_extra_options
 msgid "Extra Options"
-msgstr ""
+msgstr "Lisävaihtoehdot"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_combo_item__extra_price
@@ -1635,6 +1637,8 @@ msgid ""
 "Goods are tangible materials and merchandise you provide.\n"
 "A service is a non-material product you provide."
 msgstr ""
+"Tavarat ovat toimittamiasi aineellisia materiaaleja ja kauppatavaroita.\n"
+"Palvelu on tarjoamasi aineeton tuote."
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.res_config_settings_view_form
@@ -2357,7 +2361,7 @@ msgstr "Muu hinnasto"
 #. module: product
 #: model:product.template,name:product.product_template_dining_table
 msgid "Outdoor dining table"
-msgstr ""
+msgstr "Ulkoruokapöytä"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.report_packagingbarcode
@@ -2493,7 +2497,7 @@ msgstr "Hinnoittelusäännöt"
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_pricelist_item_form_view
 msgid "Price Type"
-msgstr ""
+msgstr "Hintatyyppi"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_product__list_price
@@ -2677,12 +2681,12 @@ msgstr "Tuotekategoria"
 #. module: product
 #: model:ir.model,name:product.model_product_combo
 msgid "Product Combo"
-msgstr ""
+msgstr "Tuoteyhdistelmän tuotteet"
 
 #. module: product
 #: model:ir.model,name:product.model_product_combo_item
 msgid "Product Combo Item"
-msgstr ""
+msgstr "Yhdistelmän tuote"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_combo__combo_item_count
@@ -2945,7 +2949,7 @@ msgstr "Ominaisuudet"
 #. module: product
 #: model:product.attribute.value,name:product.pav_protection_kit
 msgid "Protection kit"
-msgstr ""
+msgstr "Suojaustarvikepaketti"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product__purchase_ok
@@ -3313,7 +3317,7 @@ msgstr "Tunnisteita käytetään tietyn teeman tuotteiden etsimiseen."
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_attribute__template_value_ids
 msgid "Template Values"
-msgstr ""
+msgstr "Mallipohjan arvot"
 
 #. module: product
 #. odoo-python

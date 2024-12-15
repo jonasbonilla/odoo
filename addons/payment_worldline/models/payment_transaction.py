@@ -19,6 +19,31 @@ _logger = logging.getLogger(__name__)
 class PaymentTransaction(models.Model):
     _inherit = 'payment.transaction'
 
+    def _compute_reference(self, provider_code, prefix=None, separator='-', **kwargs):
+        """ Override of `payment` to ensure that Worldline requirement for references is satisfied.
+
+        Worldline requires for references to be at most 30 characters long.
+
+        :param str provider_code: The code of the provider handling the transaction.
+        :param str prefix: The custom prefix used to compute the full reference.
+        :param str separator: The custom separator used to separate the prefix from the suffix.
+        :return: The unique reference for the transaction.
+        :rtype: str
+        """
+        reference = super()._compute_reference(
+            provider_code, prefix=prefix, separator=separator, **kwargs
+        )
+        if provider_code != 'worldline':
+            return reference
+
+        if len(reference) <= 30:  # Worldline transaction merchantReference is limited to 30 chars
+            return reference
+
+        prefix = payment_utils.singularize_reference_prefix(prefix='WL')
+        return super()._compute_reference(
+            provider_code, prefix=prefix, separator=separator, **kwargs
+        )
+
     def _get_specific_processing_values(self, processing_values):
         """ Override of `payment` to redirect failed token-flow transactions.
 
@@ -184,7 +209,13 @@ class PaymentTransaction(models.Model):
         }
 
         # Make the payment request to Worldline.
-        response_content = self.provider_id._worldline_make_request('payments', payload=payload)
+        response_content = self.provider_id._worldline_make_request(
+            'payments',
+            payload=payload,
+            idempotency_key=payment_utils.generate_idempotency_key(
+                self, scope='payment_request_token'
+            )
+        )
 
         # Handle the payment request response.
         _logger.info(
@@ -237,7 +268,7 @@ class PaymentTransaction(models.Model):
 
         # Update the provider reference.
         payment_data = notification_data['payment']
-        self.provider_reference = payment_data.get('id', '').rstrip('_0')
+        self.provider_reference = payment_data.get('id', '').removesuffix('_0')
 
         # Update the payment method.
         payment_output = payment_data.get('paymentOutput', {})
@@ -253,16 +284,21 @@ class PaymentTransaction(models.Model):
 
         # Update the payment state.
         status = payment_data.get('status')
+        has_token_data = 'token' in payment_method_data
         if not status:
             raise ValidationError("Worldline: " + _("Received data with missing payment state."))
 
         if status in const.PAYMENT_STATUS_MAPPING['pending']:
             if status == 'AUTHORIZATION_REQUESTED':
                 self._set_error("Worldline: " + status)
+            elif self.operation == 'validation' \
+                 and status in {'PENDING_CAPTURE', 'CAPTURE_REQUESTED'} \
+                 and has_token_data:
+                    self._worldline_tokenize_from_notification_data(payment_method_data)
+                    self._set_done()
             else:
                 self._set_pending()
         elif status in const.PAYMENT_STATUS_MAPPING['done']:
-            has_token_data = 'token' in payment_method_data
             if self.tokenize and has_token_data:
                 self._worldline_tokenize_from_notification_data(payment_method_data)
             self._set_done()

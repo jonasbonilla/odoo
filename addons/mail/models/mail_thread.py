@@ -2066,7 +2066,7 @@ class MailThread(models.AbstractModel):
     # ------------------------------------------------------------
 
     def _get_allowed_message_post_params(self):
-        return {"attachment_ids", "body", "message_type", "partner_ids", "subtype_xmlid"}
+        return {"attachment_ids", "body", "email_add_signature", "message_type", "partner_ids", "subtype_xmlid"}
 
     @api.returns('mail.message', lambda value: value.id)
     def message_post(self, *,
@@ -3489,8 +3489,6 @@ class MailThread(models.AbstractModel):
             author_user = self.env.user if self.env.user.partner_id == author else author.user_ids[0] if author and author.user_ids else False
             if author_user:
                 signature = author_user.signature
-            elif author.name:
-                signature = Markup("<p>-- <br/>%s</p>") % author.name
 
         if force_email_company:
             company = force_email_company

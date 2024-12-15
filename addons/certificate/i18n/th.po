@@ -239,7 +239,7 @@ msgstr "ชื่อ"
 #: code:addons/certificate/models/certificate.py:0
 msgid ""
 "No private key linked to the certificate, it is required to sign documents."
-msgstr ""
+msgstr "ไม่มีคีย์ส่วนตัวที่เชื่อมโยงกับใบรับรอง จำเป็นต้องใช้ในการลงนามเอกสาร"
 
 #. module: certificate
 #: model_terms:ir.ui.view,arch_db:certificate.certificate_certificate_view_search
@@ -345,6 +345,8 @@ msgid ""
 "The certificate subject field contains invalid characters. Make sure all "
 "characters are unicode valid."
 msgstr ""
+"ฟิลด์หัวเรื่องของใบรับรองมีตัวอักษรที่ไม่ถูกต้อง "
+"ตรวจสอบให้แน่ใจว่าตัวอักษรทั้งหมดเป็นยูนิโค้ดที่ถูกต้อง"
 
 #. module: certificate
 #: model:ir.model.fields,help:certificate.field_certificate_certificate__date_end
@@ -354,7 +356,7 @@ msgstr ""
 #. module: certificate
 #: model:ir.model.fields,help:certificate.field_certificate_certificate__date_start
 msgid "The date on which the certificate starts to be valid (UTC)"
-msgstr ""
+msgstr "วันที่ใบรับรองเริ่มมีผลบังคับใช้ (UTC)"
 
 #. module: certificate
 #. odoo-python
@@ -385,7 +387,7 @@ msgstr ""
 msgid ""
 "This certificate could not be loaded. Either the content or the password is "
 "erroneous."
-msgstr ""
+msgstr "ไม่สามารถโหลดใบรับรองนี้ได้ เนื้อหาหรือรหัสผ่านไม่ถูกต้อง"
 
 #. module: certificate
 #. odoo-python
@@ -399,7 +401,7 @@ msgstr ""
 msgid ""
 "This key could not be loaded. Either its content or its password is "
 "erroneous."
-msgstr ""
+msgstr "ไม่สามารถโหลดคีย์นี้ได้ เนื้อหาหรือรหัสผ่านไม่ถูกต้อง"
 
 #. module: certificate
 #. odoo-python
@@ -416,6 +418,8 @@ msgid ""
 "Unsupported asymmetric cryptography algorithm '%s'. Currently supported for "
 "signature: EC and RSA."
 msgstr ""
+"อัลกอริทึมการเข้ารหัสแบบไม่สมมาตรที่ไม่รองรับ '%s' ปัจจุบันรองรับลายเซ็น: EC"
+" และ RSA"
 
 #. module: certificate
 #. odoo-python

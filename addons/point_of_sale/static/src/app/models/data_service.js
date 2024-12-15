@@ -8,7 +8,8 @@ import IndexedDB from "./utils/indexed_db";
 import { DataServiceOptions } from "./data_service_options";
 import { uuidv4 } from "@point_of_sale/utils";
 import { browser } from "@web/core/browser/browser";
-import { ConnectionLostError } from "@web/core/network/rpc";
+import { ConnectionLostError, RPCError } from "@web/core/network/rpc";
+import { _t } from "@web/core/l10n/translation";
 
 const { DateTime } = luxon;
 const INDEXED_DB_VERSION = 1;
@@ -110,6 +111,8 @@ export class PosData extends Reactive {
             return { ...serializedData, JSONuiState: JSON.stringify(uiState), id: record.id };
         };
 
+        const dataToDelete = {};
+
         for (const [model, params] of Object.entries(this.opts.databaseTable)) {
             const nbrRecords = records[model].size;
 
@@ -119,7 +122,7 @@ export class PosData extends Reactive {
 
             const data = dataSorter(this.models[model].getAll(), params.condition, params.key);
             this.indexedDB.create(model, data.put);
-            this.indexedDB.delete(model, data.remove);
+            dataToDelete[model] = data.remove;
         }
 
         this.indexedDB.readAll(Object.keys(this.opts.databaseTable)).then((data) => {
@@ -129,12 +132,21 @@ export class PosData extends Reactive {
 
             for (const [model, records] of Object.entries(data)) {
                 const key = this.opts.databaseTable[model].key;
+                let keysToDelete = [];
+
+                if (dataToDelete[model]) {
+                    const keysInIndexedDB = new Set(records.map((record) => record[key]));
+                    keysToDelete = dataToDelete[model].filter((key) => keysInIndexedDB.has(key));
+                }
                 for (const record of records) {
                     const localRecord = this.models[model].get(record.id);
-
                     if (!localRecord) {
-                        this.indexedDB.delete(model, [record[key]]);
+                        keysToDelete.push(record[key]);
                     }
+                }
+
+                if (keysToDelete.length) {
+                    this.indexedDB.delete(model, keysToDelete);
                 }
             }
         });
@@ -189,10 +201,20 @@ export class PosData extends Reactive {
     }
 
     async loadInitialData() {
-        return await this.orm.call("pos.session", "load_data", [
-            odoo.pos_session_id,
-            PosData.modelToLoad,
-        ]);
+        try {
+            return await this.orm.call("pos.session", "load_data", [
+                odoo.pos_session_id,
+                PosData.modelToLoad,
+            ]);
+        } catch (error) {
+            let message = _t("An error occurred while loading the Point of Sale: \n");
+            if (error instanceof RPCError) {
+                message += error.data.message;
+            } else {
+                message += error.message;
+            }
+            window.alert(message);
+        }
     }
     async initData() {
         const modelClasses = {};

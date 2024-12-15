@@ -343,7 +343,7 @@ msgid ""
 "<span>You can only take this time off in whole days, so if your schedule has"
 " half days, it won't be used efficiently.</span>"
 msgstr ""
-"<span>Je kan dit verlof alleen in hele dagen opnemen, dus als je rooster "
+"<span>Je kunt dit verlof alleen in hele dagen opnemen, dus als je rooster "
 "halve dagen heeft, zal deze niet efficiënt worden gebruikt.</span>"
 
 #. module: hr_holidays
@@ -721,9 +721,12 @@ msgstr ""
 #. module: hr_holidays
 #. odoo-python
 #: code:addons/hr_holidays/models/hr_leave_allocation.py:0
-msgid "Allocation must be confirmed (\"To Approve\") in order to approve it."
+msgid ""
+"Allocation must be confirmed (\"To Approve\") or validated once (\"Second "
+"Approval\") in order to approve it."
 msgstr ""
-"Toewijzing moet bevestigd zijn ('Goed te keuren') om het te goed te keuren."
+"De toewijzing moet worden bevestigd (\"Goedkeuren\") of eenmalig worden "
+"gevalideerd (\"Tweede goedkeuring\") om deze te kunnen goedkeuren."
 
 #. module: hr_holidays
 #. odoo-python
@@ -1804,7 +1807,7 @@ msgstr "Volgers"
 #: model:ir.model.fields,field_description:hr_holidays.field_hr_leave__message_partner_ids
 #: model:ir.model.fields,field_description:hr_holidays.field_hr_leave_allocation__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Relaties)"
+msgstr "Volgers (Contacten)"
 
 #. module: hr_holidays
 #: model:ir.model.fields,help:hr_holidays.field_hr_leave__activity_type_icon
@@ -2206,7 +2209,7 @@ msgstr "Verloftype verhoogt duur"
 #. module: hr_holidays
 #: model:ir.model.fields.selection,name:hr_holidays.selection__hr_leave_employee_type_report__holiday_status__left
 msgid "Left"
-msgstr "Links"
+msgstr "Overgebleven"
 
 #. module: hr_holidays
 #. odoo-javascript
@@ -4422,7 +4425,7 @@ msgid ""
 "You cannot refuse this allocation request since the employee has already "
 "taken leaves for it. Please refuse or delete those leaves first."
 msgstr ""
-"Je kan deze toewijzingsaanvraag niet weigeren omdat de werknemer reeds "
+"Je kunt deze toewijzingsaanvraag niet weigeren omdat de werknemer reeds "
 "verlof heeft genomen. Weiger of verwijder eerst het verlof."
 
 #. module: hr_holidays

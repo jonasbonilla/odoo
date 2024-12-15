@@ -109,7 +109,7 @@ async function fetchInternalMetaData(url) {
 
 export class LinkPlugin extends Plugin {
     static id = "link";
-    static dependencies = ["dom", "history", "selection", "split", "lineBreak", "overlay"];
+    static dependencies = ["dom", "history", "input", "selection", "split", "lineBreak", "overlay"];
     // @phoenix @todo: do we want to have createLink and insertLink methods in link plugin?
     static shared = ["createLink", "insertLink", "getPathAsUrlCommand"];
     resources = {
@@ -581,7 +581,10 @@ export class LinkPlugin extends Plugin {
                 continue;
             }
             const classes = [...link.classList].filter((c) => !this.ignoredClasses.has(c));
-            if (!classes.length) {
+            const attributes = [...link.attributes].filter(
+                (a) => !["style", "href", "class"].includes(a.name)
+            );
+            if (!classes.length && !attributes.length) {
                 link.remove();
             }
         }

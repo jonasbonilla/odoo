@@ -13,6 +13,7 @@
 # Maria Boyadjieva <marabo2000@gmail.com>, 2024
 # Martin Trigaux, 2024
 # Albena Mincheva <albena_vicheva@abv.bg>, 2024
+# Milena Georgieva, 2024
 # Petko Karamotchev, 2024
 # 
 msgid ""
@@ -1371,7 +1372,7 @@ msgstr "Напредък (%)"
 #. module: hr_skills
 #: model_terms:ir.ui.view,arch_db:hr_skills.report_employee_cv_main_panel
 msgid "Progress bar"
-msgstr ""
+msgstr "Лента за напредък"
 
 #. module: hr_skills
 #: model:ir.model.fields,help:hr_skills.field_hr_employee_skill__level_progress
@@ -1862,7 +1863,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/hr_skills/static/src/fields/skills_one2many/skills_one2many.xml:0
 msgid "Timeline"
-msgstr ""
+msgstr "Хронология"
 
 #. module: hr_skills
 #: model_terms:ir.ui.view,arch_db:hr_skills.resume_line_view_form

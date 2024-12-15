@@ -379,7 +379,7 @@ msgstr ""
 #. module: snailmail
 #: model:ir.model.fields,field_description:snailmail.field_snailmail_letter_missing_required_fields__partner_id
 msgid "Partner"
-msgstr "Relatie"
+msgstr "Contact"
 
 #. module: snailmail
 #. odoo-python
@@ -651,7 +651,7 @@ msgstr "Adres bijwerken en opnieuw verzenden"
 #. module: snailmail
 #: model:ir.model,name:snailmail.model_snailmail_letter_missing_required_fields
 msgid "Update address of partner"
-msgstr "Adres van de relatie bijwerken"
+msgstr "Adres van het contact bijwerken"
 
 #. module: snailmail
 #: model:ir.model.fields,help:snailmail.field_mail_mail__message_type

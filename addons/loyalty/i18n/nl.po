@@ -104,7 +104,7 @@ msgstr "(als tenminste"
 #. module: loyalty
 #: model_terms:ir.ui.view,arch_db:loyalty.loyalty_rule_view_kanban
 msgid "(tax excluded)"
-msgstr "(exclusief BTW)"
+msgstr "(exclusief btw)"
 
 #. module: loyalty
 #. odoo-javascript
@@ -142,7 +142,7 @@ msgstr "20-08-2023"
 #. module: loyalty
 #: model_terms:ir.ui.view,arch_db:loyalty.gift_card_report
 msgid "2023-12-31"
-msgstr "31-12-2023"
+msgstr "2023-12-31"
 
 #. module: loyalty
 #: model:mail.template,body_html:loyalty.mail_template_gift_card
@@ -451,7 +451,7 @@ msgstr "Er wacht een beloning op je"
 #. odoo-python
 #: code:addons/loyalty/models/loyalty_reward.py:0
 msgid "A reward product can't be of type \"combo\"."
-msgstr "Een beloningsproduct kan niet van het type \"combo\" zijn."
+msgstr "Een beloningsproduct kan niet van het type \"combinatie\" zijn."
 
 #. module: loyalty
 #. odoo-python
@@ -1068,7 +1068,7 @@ msgstr "Volgers"
 #. module: loyalty
 #: model:ir.model.fields,field_description:loyalty.field_loyalty_card__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Relaties)"
+msgstr "Volgers (Contacten)"
 
 #. module: loyalty
 #: model:ir.model.fields,field_description:loyalty.field_loyalty_generate_wizard__mode
@@ -1477,7 +1477,7 @@ msgstr "Max gebruik moet strikt positief zijn als een limiet wordt gebruikt."
 #. module: loyalty
 #: model:ir.model,name:loyalty.model_base_partner_merge_automatic_wizard
 msgid "Merge Partner Wizard"
-msgstr "Relaties samenvoegen wizard"
+msgstr "Contacten samenvoegen wizard"
 
 #. module: loyalty
 #: model:ir.model.fields,field_description:loyalty.field_loyalty_card__message_has_error
@@ -1492,7 +1492,7 @@ msgstr "Berichten"
 #. module: loyalty
 #: model:ir.model.fields,field_description:loyalty.field_loyalty_rule__minimum_amount_tax_mode
 msgid "Minimum Amount Tax Mode"
-msgstr "Minimumbedrag BTW"
+msgstr "Minimumbedrag btw"
 
 #. module: loyalty
 #: model:ir.model.fields,field_description:loyalty.field_loyalty_rule__minimum_amount
@@ -1588,7 +1588,7 @@ msgstr "Bestelmodel"
 #. module: loyalty
 #: model:ir.model.fields,field_description:loyalty.field_loyalty_card__partner_id
 msgid "Partner"
-msgstr "Relatie"
+msgstr "Contact"
 
 #. module: loyalty
 #: model_terms:ir.ui.view,arch_db:loyalty.loyalty_rule_view_form
@@ -1899,7 +1899,7 @@ msgstr "Symbool"
 #. module: loyalty
 #: model:ir.model.fields,field_description:loyalty.field_loyalty_reward__tax_ids
 msgid "Taxes"
-msgstr "BTW"
+msgstr "Btw"
 
 #. module: loyalty
 #: model:ir.model.fields,help:loyalty.field_loyalty_reward__tax_ids
@@ -2237,7 +2237,7 @@ msgstr ""
 #. module: loyalty
 #: model_terms:ir.ui.view,arch_db:loyalty.loyalty_rule_view_kanban
 msgid "item(s) bought"
-msgstr "artikel(en) gekocht"
+msgstr "product(en) gekocht"
 
 #. module: loyalty
 #: model_terms:ir.ui.view,arch_db:loyalty.loyalty_report
