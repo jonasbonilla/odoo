@@ -6707,7 +6707,7 @@ msgstr "Inngående saldo"
 #: code:addons/point_of_sale/static/src/app/screens/partner_list/partner_editor/partner_editor.xml:0
 #, python-format
 msgid "State"
-msgstr "Fylke"
+msgstr "Status"
 
 #. module: point_of_sale
 #. odoo-javascript
@@ -7379,7 +7379,7 @@ msgid ""
 "There are still orders in draft state in the session. Pay or cancel the following orders to validate the session:\n"
 "%s"
 msgstr ""
-"Det er fremdeles ordre med status kladd i denne økten. Betal eller avbryt følgende ordre for å validere økten:\n"
+"Det er fremdeles ordre med status utkast i denne økten. Betal eller avbryt følgende ordre for å validere økten:\n"
 "%s"
 
 #. module: point_of_sale

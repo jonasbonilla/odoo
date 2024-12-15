@@ -15,6 +15,7 @@
 # Martin Trigaux, 2023
 # Tamás Németh <ntomasz81@gmail.com>, 2024
 # krnkris, 2024
+# Krisztián Juhász <juhasz.krisztian@josafar.hu>, 2024
 # gezza <geza.nagy@oregional.hu>, 2024
 # 
 msgid ""
@@ -318,7 +319,7 @@ msgstr ""
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_package_barcode_small
 msgid "2023-01-01"
-msgstr ""
+msgstr "2023-01-01"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_picking
@@ -330,7 +331,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock.report_package_barcode
 #: model_terms:ir.ui.view,arch_db:stock.report_picking
 msgid "3.00"
-msgstr ""
+msgstr "3.00"
 
 #. module: stock
 #: model:ir.model.fields.selection,name:stock.selection__lot_label_layout__print_format__4x12
@@ -6109,7 +6110,7 @@ msgstr "Kigyűjtés"
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move_line__quant_id
 msgid "Pick From"
-msgstr ""
+msgstr "Kiszedés forrás"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_warehouse__pick_type_id

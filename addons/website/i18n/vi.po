@@ -10678,7 +10678,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website.s_rating_options
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Size"
-msgstr "Quy mô"
+msgstr "Kích thước"
 
 #. module: website
 #. odoo-javascript
@@ -13932,7 +13932,7 @@ msgstr "ví dụ. Trang chủ"
 #. module: website
 #: model:ir.ui.menu,name:website.menu_website_dashboard
 msgid "eCommerce"
-msgstr "thương mại điện tử"
+msgstr "Thương mại điện tử"
 
 #. module: website
 #: model:website.configurator.feature,name:website.feature_module_elearning

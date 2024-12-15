@@ -447,7 +447,6 @@
         display: flex;
 
         @include media-breakpoint-down(sm) {
-            flex-wrap: wrap;
             .o_field_boolean {
                 order: -1;
             }
@@ -1151,4 +1150,9 @@
 .o_field_section_and_note_one2many ~ .row.o_group {
     clear: both;
     justify-content: space-between;
+}
+
+// This ensures correct alignment with the cog button when there is no breadcrumb displayed.
+.o_breadcrumb:not(:has(.breadcrumb)) + .o_form_status_indicator {
+    align-self: center !important;
 }

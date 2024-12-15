@@ -891,8 +891,6 @@ class MrpProduction(models.Model):
                     finished_move_lines.write({'lot_id': vals.get('lot_producing_id')})
                 if 'qty_producing' in vals:
                     finished_move.quantity = vals.get('qty_producing')
-                    if production.product_tracking == 'lot':
-                        finished_move.move_line_ids.lot_id = production.lot_producing_id
             if self._has_workorders() and not production.workorder_ids.operation_id and vals.get('date_start') and not vals.get('date_finished'):
                 new_date_start = fields.Datetime.to_datetime(vals.get('date_start'))
                 if not production.date_finished or new_date_start >= production.date_finished:
@@ -1963,7 +1961,7 @@ class MrpProduction(models.Model):
             # Adapt quantities produced
             for workorder in production.workorder_ids.sorted('id'):
                 initial_workorder_remaining_qty.append(max(initial_qty - workorder.qty_reported_from_previous_wo - workorder.qty_produced, 0))
-                if workorder.production_id.id not in self.env.context.get('mo_ids_to_backorder', []):
+                if workorder.production_id.id not in (self.env.context.get('mo_ids_to_backorder') or []):
                     workorder.qty_produced = min(workorder.qty_produced, workorder.qty_production)
             workorders_len = len(production.workorder_ids)
             for index, workorder in enumerate(bo.workorder_ids):

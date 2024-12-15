@@ -7,6 +7,8 @@
 # aleksandar ivanov, 2024
 # Maria Boyadjieva <marabo2000@gmail.com>, 2024
 # KeyVillage, 2024
+# Venelin Stoykov, 2024
+# Milena Georgieva, 2024
 # Petko Karamotchev, 2024
 # 
 msgid ""
@@ -48,7 +50,7 @@ msgstr "Активиране на одитна пътека"
 #: model:ir.ui.menu,name:account_audit_trail.account_audit_trail_menu
 #: model_terms:ir.ui.view,arch_db:account_audit_trail.res_config_settings_view_form_inherit_account_audit_trail
 msgid "Audit Trail"
-msgstr ""
+msgstr "Одитна следа"
 
 #. module: account_audit_trail
 #: model:ir.model,name:account_audit_trail.model_account_bank_statement_line
@@ -61,6 +63,7 @@ msgstr "Ред на Банково Извлечение"
 #, python-format
 msgid "Can't disable audit trail when there are existing records."
 msgstr ""
+"Не може да се деактивира одитният запис, когато съществуват налични записи."
 
 #. module: account_audit_trail
 #. odoo-python
@@ -93,7 +96,7 @@ msgstr "Настройки"
 #. module: account_audit_trail
 #: model_terms:ir.ui.view,arch_db:account_audit_trail.view_message_tree_audit_log_search
 msgid "Create Only"
-msgstr ""
+msgstr "Само създаване"
 
 #. module: account_audit_trail
 #: model_terms:ir.ui.view,arch_db:account_audit_trail.view_message_tree_audit_log_search
@@ -215,7 +218,7 @@ msgstr ""
 #: code:addons/account_audit_trail/models/mail_message.py:0
 #, python-format
 msgid "Updated"
-msgstr ""
+msgstr "Актуализирано"
 
 #. module: account_audit_trail
 #. odoo-python

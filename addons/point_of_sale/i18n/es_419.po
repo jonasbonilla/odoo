@@ -6,8 +6,8 @@
 # Iran Villalobos López, 2024
 # Lucia Pacheco, 2024
 # Martin Trigaux, 2024
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Wil Odoo, 2024
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Fernanda Alvarez, 2024
 # 
 msgid ""
@@ -4425,7 +4425,7 @@ msgstr "Tipos de operación que se muestran en el tablero de Inventario."
 #: model:ir.model.fields,field_description:point_of_sale.field_report_pos_order__order_id
 #, python-format
 msgid "Order"
-msgstr "Orden"
+msgstr "Ordenar"
 
 #. module: point_of_sale
 #. odoo-javascript
@@ -6328,7 +6328,7 @@ msgstr "Escanear vía proxy"
 #: code:addons/point_of_sale/static/src/app/navbar/proxy_status/proxy_status.js:0
 #, python-format
 msgid "Scanner"
-msgstr "Escáner"
+msgstr "Escáner"
 
 #. module: point_of_sale
 #. odoo-javascript
