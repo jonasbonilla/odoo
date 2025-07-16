@@ -49,3 +49,7 @@ package.json
 /man/
 /share/
 /src/
+local-addons/
+odoo17.conf
+odoo18.conf
+third-addons/
