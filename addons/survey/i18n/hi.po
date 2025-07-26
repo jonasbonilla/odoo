@@ -879,7 +879,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:survey.survey_question_answer_view_tree
 #: model_terms:ir.ui.view,arch_db:survey.survey_user_input_view_form
 msgid "Answer"
-msgstr ""
+msgstr "जवाब"
 
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_user_input_line__answer_type
@@ -4244,7 +4244,7 @@ msgstr "सब्जेक्ट..."
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_fill_form_in_progress
 msgid "Submit"
-msgstr ""
+msgstr "सबमिट करें"
 
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_survey__success_count

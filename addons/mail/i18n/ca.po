@@ -2390,7 +2390,7 @@ msgstr "Configureu la vostra llista de servidors ICE per al webRTC"
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
 msgid "Configure your activity types"
-msgstr "Configura els tipus d' activitatName"
+msgstr "Configura els tipus d'activitat"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
@@ -2618,7 +2618,7 @@ msgstr "Crea un Uid"
 #. odoo-python
 #: code:addons/mail/wizard/mail_compose_message.py:0
 msgid "Create a Mail Template"
-msgstr ""
+msgstr "Crear una plantilla de correu"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_fetchmail_server__object_id

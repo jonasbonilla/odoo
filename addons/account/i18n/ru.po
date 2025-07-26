@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-11 18:38+0000\n"
+"POT-Creation-Date: 2025-07-18 18:38+0000\n"
 "PO-Revision-Date: 2024-09-25 09:41+0000\n"
 "Last-Translator: Anastasiia Koroleva, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
@@ -4328,10 +4328,6 @@ msgid ""
 "accordance with their internal legislation. Any withholding at source will "
 "be paid by the client to the tax authorities. Under no circumstances can"
 msgstr ""
-"Некоторые страны в соответствии со своим внутренним законодательством "
-"удерживают налог у источника на сумму счетов-фактур. Любые удержания у "
-"источника выплачиваются клиентом налоговым органам. Ни при каких "
-"обстоятельствах"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_secure_entries_wizard__chains_to_hash_with_gaps
@@ -13347,6 +13343,13 @@ msgstr "Сторнировать и создать счет-фактуру"
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
 msgid "Reversed"
 msgstr "Сторнировано"
+
+#. module: account
+#. odoo-javascript
+#: code:addons/account/static/src/components/account_payment_field/account_payment.xml:0
+#: model_terms:ir.ui.view,arch_db:account.report_invoice_document
+msgid "Reversed on"
+msgstr ""
 
 #. module: account
 #. odoo-python
