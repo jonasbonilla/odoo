@@ -152,9 +152,7 @@ export class PosOrderline extends Base {
         }
 
         // Remove those that needed to be removed.
-        for (const lotLine of lotLinesToRemove) {
-            this.pack_lot_ids = this.pack_lot_ids.filter((pll) => pll.id !== lotLine.id);
-        }
+        this.update({ pack_lot_ids: [["unlink", ...lotLinesToRemove]] });
 
         for (const newLotLine of newPackLotLines) {
             this.models["pos.pack.operation.lot"].create({
@@ -380,6 +378,7 @@ export class PosOrderline extends Base {
                 this.config._product_default_values,
                 product
             ),
+            is_refund: this.qty * priceUnit < 0,
             ...customValues,
         };
         if (order.fiscal_position_id) {

@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* web
-# 
+# * web
+#
 # Translators:
 # Matija Gudlin, 2024
 # Milan Tribuson <one.mile.code@gmail.com>, 2024
@@ -27,22 +27,25 @@
 # Zvonimir Galic, 2025
 # Denis Gobin, 2025
 # Goran Kliska <gkliska@gmail.com>, 2025
-# Luka Carević <luka@uvid.hr>, 2025
 # Ivica Dimjašević, 2025
-# 
+# Luka Carević <luka@uvid.hr>, 2025
+# Karlo Mikešić <karlo@uvid.hr>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-23 18:39+0000\n"
-"PO-Revision-Date: 2024-09-25 09:42+0000\n"
-"Last-Translator: Ivica Dimjašević, 2025\n"
-"Language-Team: Croatian (https://app.transifex.com/odoo/teams/41243/hr/)\n"
+"PO-Revision-Date: 2025-08-14 13:55+0000\n"
+"Last-Translator: Karlo Mikešić <karlo@uvid.hr>\n"
+"Language-Team: Croatian <https://translate.odoo.com/projects/odoo-18/web/hr/>"
+"\n"
+"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: hr\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. module: web
 #. odoo-javascript
@@ -929,7 +932,7 @@ msgstr "Dodajte stupac"
 #. odoo-javascript
 #: code:addons/web/static/src/views/fields/domain/domain_field.xml:0
 msgid "Add condition"
-msgstr ""
+msgstr "Dodaj uvjet"
 
 #. module: web
 #. odoo-javascript
@@ -970,7 +973,7 @@ msgstr "Adresa"
 #. odoo-javascript
 #: code:addons/web/static/src/views/view_dialogs/select_create_dialog.xml:0
 msgid "Adjust your filters or create a new record."
-msgstr ""
+msgstr "Prilagodite filtre ili kreirajte novi zapis."
 
 #. module: web
 #. odoo-javascript
@@ -2328,7 +2331,7 @@ msgstr "Obriši"
 #. odoo-javascript
 #: code:addons/web/static/src/search/search_bar_menu/search_bar_menu.js:0
 msgid "Delete Filter"
-msgstr ""
+msgstr "Obriši filter"
 
 #. module: web
 #. odoo-javascript
@@ -2720,7 +2723,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web/static/src/webclient/settings_form_view/widgets/res_config_invite_users.xml:0
 msgid "Enter an email"
-msgstr ""
+msgstr "Unesite email"
 
 #. module: web
 #. odoo-javascript
@@ -3769,7 +3772,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web/static/src/views/kanban/kanban_column_examples_dialog.xml:0
 msgid "Kanban Examples"
-msgstr ""
+msgstr "Kanban primjeri"
 
 #. module: web
 #. odoo-javascript
@@ -4527,7 +4530,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web/static/src/search/properties_group_by_item/properties_group_by_item.xml:0
 msgid "No Properties"
-msgstr ""
+msgstr "Nema svojstava"
 
 #. module: web
 #. odoo-javascript
@@ -4599,7 +4602,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web/static/src/views/view_dialogs/select_create_dialog.xml:0
 msgid "No record found"
-msgstr ""
+msgstr "Nema pronađenih zapisa"
 
 #. module: web
 #. odoo-javascript
@@ -5192,7 +5195,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web/static/src/views/kanban/kanban_column_quick_create.xml:0
 msgid "Press"
-msgstr ""
+msgstr "Pritisnite"
 
 #. module: web
 #. odoo-javascript
@@ -5945,7 +5948,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web/static/src/core/model_field_selector/model_field_selector_popover.js:0
 msgid "Select a field"
-msgstr ""
+msgstr "Odaberite polje"
 
 #. module: web
 #. odoo-javascript
@@ -6168,7 +6171,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web/static/src/views/view_components/view_scale_selector.xml:0
 msgid "Show weekends"
-msgstr ""
+msgstr "Prikaži vikende"
 
 #. module: web
 #. odoo-javascript
@@ -6660,7 +6663,7 @@ msgstr "Ova datoteka nije valjana. Molimo odaberite sliku."
 #. odoo-javascript
 #: code:addons/web/static/src/search/search_bar_menu/search_bar_menu.js:0
 msgid "This filter is global and will be removed for everyone."
-msgstr ""
+msgstr "Ovaj filter je globalan i bit će uklonjen za sve."
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.preview_externalreport
@@ -6862,6 +6865,9 @@ msgid ""
 "Try to add some records, or make sure that there is no\n"
 "                    active filter in the search bar."
 msgstr ""
+"Pokušajte dodati nove zapise ili provjerite da u traci za pretraživanje nema "
+"\n"
+"                    aktivnog filtera."
 
 #. module: web
 #. odoo-javascript
@@ -6982,7 +6988,7 @@ msgstr "Odarhiviraj sve"
 #: code:addons/web/controllers/export.py:0
 #: code:addons/web/static/src/views/calendar/calendar_model.js:0
 msgid "Undefined"
-msgstr "Nedefiniran"
+msgstr "Nedefinirano"
 
 #. module: web
 #. odoo-javascript
@@ -7325,7 +7331,7 @@ msgstr ""
 #. module: web
 #: model:ir.model.fields,field_description:web.field_res_config_settings__web_app_name
 msgid "Web App Name"
-msgstr ""
+msgstr "Naziv web aplikacije"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.qunit_mobile_suite
@@ -26429,7 +26435,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web/static/src/core/emoji_picker/emoji_data.js:0
 msgid "“monthly amount”"
-msgstr ""
+msgstr "\"mjesečni iznos\""
 
 #. module: web
 #. odoo-javascript

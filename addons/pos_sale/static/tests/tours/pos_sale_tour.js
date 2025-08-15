@@ -457,6 +457,7 @@ registry.category("web_tour.tours").add("test_quantity_updated_settle", {
             Dialog.confirm("Open Register"),
             PosSale.settleNthOrder(1),
             ProductScreen.clickNumpad("2"),
+            Order.hasLine({ productName: "Product A", quantity: "2.0" }),
             ProductScreen.clickPayButton(),
             PaymentScreen.clickPaymentMethod("Bank"),
             PaymentScreen.clickValidate(),
@@ -491,5 +492,25 @@ registry.category("web_tour.tours").add("test_sale_order_fp_different_from_partn
             PaymentScreen.clickValidate(),
             ReceiptScreen.receiptIsThere(),
             ReceiptScreen.clickNextOrder(),
+        ].flat(),
+});
+
+registry.category("web_tour.tours").add("test_multiple_lots_sale_order", {
+    steps: () =>
+        [
+            Chrome.startPoS(),
+            Dialog.confirm("Open Register"),
+            PosSale.settleNthOrder(1, { loadSN: true }),
+            PosSale.selectedOrderLinesHasLots("Product", ["1002"]),
+            Utils.negateStep(...PosSale.selectedOrderLinesHasLots("Product", ["1001"])),
+            ProductScreen.selectedOrderlineHas("Product", "2.00"),
+            ProductScreen.clickOrderline("Product", "1"),
+            PosSale.selectedOrderLinesHasLots("Product", ["1001"]),
+            ProductScreen.selectedOrderlineHas("Product", "1.00"),
+            Utils.negateStep(...PosSale.selectedOrderLinesHasLots("Product", ["1002"])),
+            ProductScreen.clickPayButton(),
+            PaymentScreen.clickPaymentMethod("Bank"),
+            PaymentScreen.clickValidate(),
+            ReceiptScreen.isShown(),
         ].flat(),
 });

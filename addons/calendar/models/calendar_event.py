@@ -554,7 +554,8 @@ class Meeting(models.Model):
                 'allday': vals.get('allday', defaults.get('allday')),
                 'description': vals.get('description', defaults.get('description')),
                 'name': vals.get('name', defaults.get('name')),
-                'res_id': vals.get('res_id', defaults.get('res_id')),
+                # when res_id is not defined or vals['res_id'] == 0, fallback on default
+                'res_id': vals.get('res_id') or defaults.get('res_id'),
                 'res_model': vals.get('res_model', defaults.get('res_model')),
                 'res_model_id': vals.get('res_model_id', defaults.get('res_model_id')),
                 'start': vals.get('start', defaults.get('start')),
@@ -956,10 +957,14 @@ class Meeting(models.Model):
         public_users_settings_ids = self.env['res.users.settings'].sudo().search(
             [('calendar_default_privacy', '!=', 'private')]).ids
         # display public, confidential events and events with default privacy when owner's default privacy is not private
-        return [
-            '|', '|', '|', ('privacy', '=', 'public'), ('privacy', '=', 'confidential'), ('user_id', '=', self.env.user.id),
-            '&', ('privacy', '=', False), ('user_id.res_users_settings_id', 'in', public_users_settings_ids)
-        ]
+        return ['|', '|',
+            ('privacy', 'in', ['public', 'confidential']),
+            ('user_id', '=', self.env.user.id),
+            '&',
+                ('privacy', '=', False),
+                '|',
+                    ('user_id', '=', False),
+                    ('user_id.res_users_settings_id', 'in', public_users_settings_ids)]
 
     def _is_event_over(self):
         """Check if the event is over. This method is used to check if the event
@@ -1131,7 +1136,7 @@ class Meeting(models.Model):
         events_to_notify = self.env['calendar.event']
         triggers_by_events = {}
         for event in self:
-            existing_trigger = event.recurrence_id.trigger_id
+            existing_trigger = event.recurrence_id.sudo().trigger_id
             for alarm in (alarm for alarm in event.alarm_ids if alarm.alarm_type in alarm_types):
                 at = event.start - timedelta(minutes=alarm.duration_minutes)
                 create_trigger = not existing_trigger or existing_trigger and existing_trigger.call_at != at
