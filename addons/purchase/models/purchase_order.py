@@ -22,7 +22,7 @@ class PurchaseOrder(models.Model):
     _rec_names_search = ['name', 'partner_ref']
     _order = 'priority desc, id desc'
 
-    @api.depends('order_line.price_subtotal', 'company_id')
+    @api.depends('order_line.price_subtotal', 'company_id', 'currency_id')
     def _amount_all(self):
         AccountTax = self.env['account.tax']
         for order in self:
@@ -85,7 +85,7 @@ class PurchaseOrder(models.Model):
     date_order = fields.Datetime('Order Deadline', required=True, index=True, copy=False, default=fields.Datetime.now,
         help="Depicts the date within which the Quotation should be confirmed and converted into a purchase order.")
     date_approve = fields.Datetime('Confirmation Date', readonly=True, index=True, copy=False)
-    partner_id = fields.Many2one('res.partner', string='Vendor', required=True, change_default=True, tracking=True, check_company=True, help="You can find a vendor by its Name, TIN, Email or Internal Reference.")
+    partner_id = fields.Many2one('res.partner', string='Vendor', required=True, index=True, change_default=True, tracking=True, check_company=True, help="You can find a vendor by its Name, TIN, Email or Internal Reference.")
     dest_address_id = fields.Many2one('res.partner', check_company=True, string='Dropship Address',
         help="Put an address if you want to deliver directly from the vendor to the customer. "
              "Otherwise, keep empty to deliver to your own company.")

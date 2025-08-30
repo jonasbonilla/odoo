@@ -824,6 +824,13 @@ class TestUi(TestPointOfSaleHttpCommon):
         self.main_pos_config.with_user(self.pos_user).open_ui()
         self.start_pos_tour("test_serial_number_do_not_duplicate_after_refresh")
 
+    def test_tax_control_button_visiblity(self):
+        self.main_pos_config.write({
+            'tax_regime_selection': False,
+        })
+        self.main_pos_config.with_user(self.pos_user).open_ui()
+        self.start_pos_tour('test_tax_control_button_visiblity')
+
     def test_fiscal_position_no_tax(self):
         #create a tax of 15% with price included
         tax = self.env['account.tax'].create({
@@ -995,6 +1002,7 @@ class TestUi(TestPointOfSaleHttpCommon):
         self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'ReceiptScreenDiscountWithPricelistTour', login="pos_user")
 
     def test_07_product_combo(self):
+        self.env['decimal.precision'].search([('name', '=', 'Product Price')]).digits = 4
         setup_product_combo_items(self)
         self.office_combo.write({
             'lst_price': 50,
@@ -1008,6 +1016,9 @@ class TestUi(TestPointOfSaleHttpCommon):
         parent_line_id = self.env['pos.order.line'].search([('product_id.name', '=', 'Office Combo'), ('order_id', '=', order.id)])
         combo_line_ids = self.env['pos.order.line'].search([('product_id.name', '!=', 'Office Combo'), ('order_id', '=', order.id)])
         self.assertEqual(parent_line_id.combo_line_ids, combo_line_ids, "The combo parent should have 3 combo lines")
+        self.assertEqual(order.lines[1].price_unit, 10.33)
+        self.assertEqual(order.lines[2].price_unit, 18.67)
+        self.assertEqual(order.lines[3].price_unit, 30.00)
         # In the future we might want to test also if:
         #   - the combo lines are correctly stored in and restored from local storage
         #   - the combo lines are correctly shared between the pos configs ( in cross ordering )
@@ -2075,6 +2086,12 @@ class TestUi(TestPointOfSaleHttpCommon):
         self.main_pos_config.with_user(self.pos_user).open_ui()
         self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'test_barcode_search_attributes_preset', login="pos_user")
 
+    def test_auto_validate_force_done(self):
+        self.main_pos_config.write({
+            'auto_validate_terminal_payment': True
+        })
+        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'test_auto_validate_force_done', login="pos_user")
+
     def test_pos_ui_round_globally(self):
         self.main_pos_config.company_id.tax_calculation_rounding_method = 'round_globally'
         tax_16 = self.env['account.tax'].create({
@@ -2109,6 +2126,11 @@ class TestUi(TestPointOfSaleHttpCommon):
         self.assertAlmostEqual(lines[2].balance, 56.41)
         self.assertAlmostEqual(lines[3].balance, 352.59)
         self.assertAlmostEqual(lines[4].balance, 7771.01)
+
+    def test_click_all_orders_keep_customer(self):
+        """Verify that clicking on 'All Orders' keeps the customer selected."""
+        self.main_pos_config.with_user(self.pos_user).open_ui()
+        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'test_click_all_orders_keep_customer', login="pos_user")
 
 # This class just runs the same tests as above but with mobile emulation
 class MobileTestUi(TestUi):

@@ -803,16 +803,20 @@ class AccountMove(models.Model):
             move.payment_reference = move._get_invoice_computed_reference()
         self._inverse_payment_reference()
 
+    def _get_accounting_date_source(self):
+        self.ensure_one()
+        return self.invoice_date or self.date
+
     @api.depends('invoice_date', 'company_id', 'move_type')
     def _compute_date(self):
         for move in self:
-            if not move.invoice_date or not move.is_invoice(include_receipts=True):
+            accounting_date = move._get_accounting_date_source()
+            if not accounting_date or not move.is_invoice(include_receipts=True):
                 if not move.date:
                     move.date = fields.Date.context_today(self)
                 continue
-            accounting_date = move.invoice_date
             if not move.is_sale_document(include_receipts=True):
-                accounting_date = move._get_accounting_date(move.invoice_date, move._affect_tax_report())
+                accounting_date = move._get_accounting_date(accounting_date, move._affect_tax_report())
             if accounting_date and accounting_date != move.date:
                 move.date = accounting_date
                 # _affect_tax_report may trigger premature recompute of line_ids.date
@@ -1145,8 +1149,8 @@ class AccountMove(models.Model):
     def _compute_payment_state(self):
         groups = self.grouped(lambda move:
             'legacy' if move.payment_state == 'invoicing_legacy' else
-            'posted_invoice' if move.state == 'posted' and move.is_invoice(True) else
             'blocked' if move.payment_state == 'blocked' else
+            'posted_invoice' if move.state == 'posted' and move.is_invoice(True) else
             'unpaid'
         )
         groups.get('unpaid', self.browse()).payment_state = 'not_paid'
@@ -1876,23 +1880,26 @@ class AccountMove(models.Model):
         self.env["account.move"].flush_model(used_fields)
 
         move_table_and_alias = SQL("account_move AS move")
-        if not moves[0].id:  # check if record is under creation/edition in UI
+        if not all(move.id for move in moves):  # check if record is under creation/edition in UI
             # New record aren't searchable in the DB and record in edition aren't up to date yet
             # Replace the table by safely injecting the values in the query
-            values = {
-                field_name: moves._fields[field_name].convert_to_write(moves[field_name], moves) or None
-                for field_name in used_fields
-            }
-            values["id"] = moves._origin.id or 0
-            # The amount total depends on the field line_ids and is calculated upon saving, we needed a way to get it even when the
-            # invoices has not been saved yet.
-            values['amount_total'] = self.tax_totals.get('total_amount_currency', 0)
-            casted_values = SQL(', ').join(
-                SQL("%s::%s", value, SQL.identifier(moves._fields[field_name].column_type[0]))
-                for field_name, value in values.items()
-            )
-            column_names = SQL(', ').join(SQL.identifier(field_name) for field_name in values)
-            move_table_and_alias = SQL("(VALUES (%s)) AS move(%s)", casted_values, column_names)
+            all_values = []
+            for move in moves:
+                values = {
+                    field_name: move._fields[field_name].convert_to_write(move[field_name], move) or None
+                    for field_name in used_fields
+                }
+                values["id"] = move._origin.id or 0
+                # The amount total depends on the field line_ids and is calculated upon saving,
+                # we needed a way to get it even when the invoices has not been saved yet.
+                values['amount_total'] = move.tax_totals.get('total_amount_currency', 0)
+                casted_values = SQL(', ').join(
+                    SQL("%s::%s", value, SQL.identifier(move._fields[field_name].column_type[0]))
+                    for field_name, value in values.items()
+                )
+                all_values.append(SQL("(%s)", casted_values))
+            column_names = SQL(', ').join(SQL.identifier(field_name) for field_name in used_fields + ("id",))
+            move_table_and_alias = SQL("(VALUES %s) AS move(%s)", SQL(', ').join(all_values), column_names)
 
         to_query = []
         out_moves = moves.filtered(lambda m: m.move_type in ('out_invoice', 'out_refund'))
@@ -2447,6 +2454,19 @@ class AccountMove(models.Model):
                     raise ValidationError(_("This entry contains taxes that are not compatible with your fiscal position. Check the country set in fiscal position and in your tax configuration."))
                 raise ValidationError(_("This entry contains one or more taxes that are incompatible with your fiscal country. Check company fiscal country in the settings and tax country in taxes configuration."))
 
+    @api.constrains('invoice_currency_rate')
+    def _check_invoice_currency_rate(self):
+        """Ensure the currency rate is strictly positive when invoice currency differs from company currency."""
+        for move in self:
+            if (
+                move.currency_id
+                and move.company_id
+                and move.currency_id != move.company_id.currency_id
+                and move.is_invoice(include_receipts=True)
+                and move.invoice_currency_rate <= 0
+            ):
+                raise ValidationError(_("The currency rate must be strictly positive."))
+
     # -------------------------------------------------------------------------
     # CATALOG
     # -------------------------------------------------------------------------
@@ -2568,7 +2588,11 @@ class AccountMove(models.Model):
             and (
                 not reference_date
                 or not self.invoice_date
-                or reference_date <= fields.first(payment_terms).discount_date
+                or (
+                    (existing_discount_date := fields.first(payment_terms).discount_date)
+                    and
+                    reference_date <= existing_discount_date
+                )
             ) \
             and not (payment_terms.sudo().matched_debit_ids + payment_terms.sudo().matched_credit_ids)
 
@@ -3151,7 +3175,7 @@ class AccountMove(models.Model):
                     if command == Command.CREATE
                 ]
             elif move.move_type == 'entry':
-                if 'partner_id' not in vals:
+                if 'partner_id' not in vals or not self._context.get('move_reverse_cancel'):
                     vals['partner_id'] = False
             user_fiscal_lock_date = move.company_id._get_user_fiscal_lock_date(move.journal_id)
             if (default_date or move.date) <= user_fiscal_lock_date:
@@ -4971,7 +4995,7 @@ class AccountMove(models.Model):
             affects_tax_report = move._affect_tax_report()
             lock_dates = move._get_violated_lock_dates(move.date, affects_tax_report)
             if lock_dates:
-                move.date = move._get_accounting_date(move.invoice_date or move.date, affects_tax_report, lock_dates=lock_dates)
+                move.date = move._get_accounting_date(move._get_accounting_date_source(), affects_tax_report, lock_dates=lock_dates)
 
         # Create the analytic lines in batch is faster as it leads to less cache invalidation.
         to_post.line_ids._create_analytic_lines()
