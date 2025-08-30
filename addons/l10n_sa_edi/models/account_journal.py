@@ -143,19 +143,20 @@ class AccountJournal(models.Model):
         self.ensure_one()
 
         company_id = self.company_id
+        parent_company_id = self.company_id.parent_id
         version_info = service.common.exp_version()
         builder = x509.CertificateSigningRequestBuilder()
         subject_names = (
             # Country Name
             (NameOID.COUNTRY_NAME, company_id.country_id.code),
             # Organization Unit Name
-            (NameOID.ORGANIZATIONAL_UNIT_NAME, (company_id.vat or '')[:10]),
+            (NameOID.ORGANIZATIONAL_UNIT_NAME, company_id.name if parent_company_id else company_id.vat[:10]),
             # Organization Name
-            (NameOID.ORGANIZATION_NAME, company_id.name),
+            (NameOID.ORGANIZATION_NAME, parent_company_id.name if parent_company_id else company_id.name),
             # Subject Common Name (Short Code - Journal Name - Company Name)
             (NameOID.COMMON_NAME, "%s-%s-%s" % (self.code, self.name, company_id.name)),
             # Organization Identifier
-            (ObjectIdentifier('2.5.4.97'), company_id.vat),
+            (ObjectIdentifier('2.5.4.97'), parent_company_id.vat if parent_company_id else company_id.vat),
             # State/Province Name
             (NameOID.STATE_OR_PROVINCE_NAME, company_id.state_id.name),
             # Locality Name
@@ -376,7 +377,7 @@ class AccountJournal(models.Model):
         xml_content = self._l10n_sa_prepare_invoice_xml(xml_raw)
         signed_xml = self.env.ref('l10n_sa_edi.edi_sa_zatca')._l10n_sa_sign_xml(xml_content, PCSID, signature)
         if xml_name.startswith('simplified'):
-            qr_code_str = self.env['account.move']._l10n_sa_get_qr_code(self, signed_xml, b64decode(PCSID).decode(),
+            qr_code_str = self.env['account.move']._l10n_sa_get_qr_code(self.company_id, signed_xml, b64decode(PCSID).decode(),
                                                                         signature, True)
             root = etree.fromstring(signed_xml)
             qr_node = root.xpath('//*[local-name()="ID"][text()="QR"]/following-sibling::*/*')[0]
@@ -610,14 +611,14 @@ class AccountJournal(models.Model):
                                                 headers={
                                                     **self._l10n_sa_api_headers(),
                                                     **request_data.get('header')
-                                                }, timeout=(30, 30))
+                                                }, timeout=30)
             request_response.raise_for_status()
         except (ValueError, HTTPError) as ex:
             # The 400 case means that it is rejected by ZATCA, but we need to update the hash as done for accepted.
             # In the 401+ cases, it is like the server is overloaded e.g. and we still need to resend later.  We do not
             # erase the index chain (excepted) because for ZATCA, one ICV (index chain) needs to correspond to one invoice.
             status_code = ex.response.status_code
-            if status_code != 400:
+            if status_code not in {400, 409}:
                 return {
                     'error': (Markup("<b>[%s]</b>") % status_code) + _("Server returned an unexpected error: %(error)s",
                                error=(request_response.text or str(ex))),
@@ -642,6 +643,9 @@ class AccountJournal(models.Model):
                 'blocking_level': 'error'
             }
         response_data['status_code'] = request_response.status_code
+
+        if status_code == 409:
+            return response_data
 
         val_res = response_data.get('validationResults', {})
         if not request_response.ok and (val_res.get('errorMessages') or val_res.get('warningMessages')):

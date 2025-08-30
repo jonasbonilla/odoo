@@ -36,8 +36,17 @@ class AccountMoveSend(models.TransientModel):
 
     def _l10n_tr_nilvera_check_invoices(self):
         moves_to_check = self.move_ids.filtered(self._get_default_l10n_tr_nilvera_einvoice_enable_einvoice)
+        mandatory_category_codes = self.env["res.partner.category"]._get_l10n_tr_official_mandatory_categories()
 
         warnings = {}
+
+        if tr_companies_missing_required_codes := moves_to_check.company_id.filtered(lambda c: not (c.partner_id.category_id.parent_id & mandatory_category_codes)):
+            warnings["tr_companies_missing_required_codes"] = {
+                "message": _("Please ensure that your company contact has either the 'MERSISNO' or 'TICARETSICILNO' tag with a value assigned."),
+                "action_text": _("View Company(s)"),
+                "action": tr_companies_missing_required_codes.partner_id._get_records_action(name=_("Check tags on company(s)")),
+                "critical": True,
+            }
 
         if invalid_records := moves_to_check.partner_id.filtered(
             lambda p: p.country_code != "TR"
@@ -79,6 +88,17 @@ class AccountMoveSend(models.TransientModel):
                     name=_("Check data on Invoice(s)"),
                 ),
                 "critical": True,
+            }
+
+        if invalid_negative_lines := moves_to_check.filtered(
+            lambda move: move._l10n_tr_nilvera_einvoice_check_negative_lines(),
+        ):
+            warnings["critical_invalid_negative_lines"] = {
+                "message": _("Nilvera portal cannot process negative quantity nor negative price on invoice lines"),
+                "action_text": _("View Invoice(s)"),
+                "action": invalid_negative_lines._get_records_action(name=_("Check data on Invoice(s)")),
+                "critical": True,
+                "danger": True,
             }
 
         return warnings
