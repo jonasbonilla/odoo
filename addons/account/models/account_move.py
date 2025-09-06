@@ -3191,10 +3191,18 @@ class AccountMove(models.Model):
         for old_move, new_move in zip(self, new_moves):
             message_origin = '' if not new_move.auto_post_origin_id else \
                 (Markup('<br/>') + _('This recurring entry originated from %s', new_move.auto_post_origin_id._get_html_link()))
-            message_content = _('This entry has been reversed from %s', old_move._get_html_link()) if default.get('reversed_entry_id') else _('This entry has been duplicated from %s', old_move._get_html_link())
+            message_content = old_move._get_copy_message_content(default)
             bodies[new_move.id] = message_content + message_origin
         new_moves._message_log_batch(bodies=bodies)
         return new_moves
+
+    def _get_copy_message_content(self, default):
+        """Hook method to customize the message content when copying a move.
+        This method can be overridden by other modules to add custom logic.
+        :param default: The default values dict passed to copy method
+        :return: The message content string
+        """
+        return _('This entry has been reversed from %s', self._get_html_link()) if default.get('reversed_entry_id') else _('This entry has been duplicated from %s', self._get_html_link())
 
     def _sanitize_vals(self, vals):
         if vals.get('invoice_line_ids') and vals.get('line_ids'):
@@ -3940,7 +3948,25 @@ class AccountMove(models.Model):
         """
         if not self:
             return False
-        last_move_in_chain = max(self, key=lambda m: m.sequence_number)
+
+        # Delegate to the database, instead of max(self, key=lambda m: m.sequence_number)
+        last_move_in_chain = (
+            self.env['account.move']
+            .sudo()
+            .search_fetch(
+                domain=[('id', 'in', self.ids)],
+                field_names=[
+                    'sequence_prefix',
+                    'sequence_number',
+                    'journal_id',
+                    # Pre-emptive fetching for `_is_move_restricted`
+                    'state',
+                    'restrict_mode_hash_table',
+                ],
+                order='sequence_number desc',
+                limit=1,
+            )
+        )
         journal = last_move_in_chain.journal_id
         if not self._is_move_restricted(last_move_in_chain, force_hash=force_hash):
             return False
@@ -3949,10 +3975,10 @@ class AccountMove(models.Model):
             ('journal_id', '=', journal.id),
             ('sequence_prefix', '=', last_move_in_chain.sequence_prefix),
         ]
-        last_move_hashed = self.env['account.move'].search([
+        last_move_hashed = self.env['account.move'].search_fetch([
             *common_domain,
             ('inalterable_hash', '!=', False),
-        ], order='sequence_number desc', limit=1)
+        ], ['sequence_number', 'inalterable_hash'], order='sequence_number desc', limit=1)
 
         domain = self.env['account.move']._get_move_hash_domain([
             *common_domain,
@@ -3967,34 +3993,43 @@ class AccountMove(models.Model):
         # so we can stop the computation early if we find at least one document to hash
         if early_stop:
             return self.env['account.move'].sudo().search_count(domain, limit=1)
-        moves_to_hash = self.env['account.move'].sudo().search(domain, order='sequence_number')
-        warnings = set()
-        if moves_to_hash:
-            # gap warning
-            if last_move_hashed:
-                first = last_move_hashed.sequence_number
-                difference = len(moves_to_hash)
-            else:
-                first = moves_to_hash[0].sequence_number
-                difference = len(moves_to_hash) - 1
-            last = moves_to_hash[-1].sequence_number
-            if first + difference != last:
-                warnings.add('gap')
-
-            # unreconciled warning
-            unreconciled = False in moves_to_hash.statement_line_ids.mapped('is_reconciled')
-            if unreconciled:
-                warnings.add('unreconciled')
-        else:
-            warnings.add('no_document')
-        moves = moves_to_hash.sudo(False)
-        return {
+        moves_to_hash = self.env['account.move'].sudo().search_fetch(domain, ['sequence_number'], order='sequence_number')
+        info = {
             'previous_hash': last_move_hashed.inalterable_hash,
             'last_move_hashed': last_move_hashed,
+        }
+        if self.env.context.get('chain_info_warnings', True):
+            warnings = set()
+            if moves_to_hash:
+                # gap warning
+                if last_move_hashed:
+                    first = last_move_hashed.sequence_number
+                    difference = len(moves_to_hash)
+                else:
+                    first = moves_to_hash[0].sequence_number
+                    difference = len(moves_to_hash) - 1
+                last = moves_to_hash[-1].sequence_number
+                if first + difference != last:
+                    warnings.add('gap')
+
+                # unreconciled warning
+                has_unreconciled = bool(self.env['account.bank.statement.line'].search_count([
+                    ('move_id', 'in', moves_to_hash.ids),
+                    ('is_reconciled', '=', False),
+                ], limit=1))
+                if has_unreconciled:
+                    warnings.add('unreconciled')
+            else:
+                warnings.add('no_document')
+
+            info['warnings'] = warnings
+
+        moves = moves_to_hash.sudo(False)
+        info.update({
             'moves': moves,
             'remaining_moves': self - moves,
-            'warnings': warnings,
-        }
+        })
+        return info
 
     def _get_chains_to_hash(self, force_hash=False, raise_if_gap=True, raise_if_no_document=True, include_pre_last_hash=False, early_stop=False):
         """
@@ -5078,7 +5113,7 @@ class AccountMove(models.Model):
 
     def _link_bill_origin_to_purchase_orders(self, timeout=10):
         for move in self.filtered(lambda m: m.move_type in self.get_purchase_types()):
-            references = [move.invoice_origin] if move.invoice_origin else []
+            references = [ref.strip() for ref in move.invoice_origin.split(',')] if move.invoice_origin else []
             move._find_and_set_purchase_orders(references, move.partner_id.id, move.amount_total, timeout=timeout)
         return self
 
@@ -6134,7 +6169,11 @@ class AccountMove(models.Model):
             'invoice_source_email': from_mail_addresses[0],
             'partner_id': partners and partners[0].id or False,
         }
-        move_ctx = self.with_context(default_move_type=custom_values['move_type'], default_journal_id=custom_values['journal_id'])
+        move_ctx = self.with_context(
+            default_move_type=custom_values['move_type'],
+            default_journal_id=custom_values['journal_id'],
+            default_company_id=company.id,
+        )
         move = super(AccountMove, move_ctx).message_new(msg_dict, custom_values=values)
         move._compute_name()  # because the name is given, we need to recompute in case it is the first invoice of the journal
 
