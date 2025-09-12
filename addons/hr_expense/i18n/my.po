@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-08 18:37+0000\n"
-"PO-Revision-Date: 2025-09-05 22:20+0000\n"
+"PO-Revision-Date: 2025-09-11 17:20+0000\n"
 "Last-Translator: Oakarmin Iron <oakarminiron@gmail.com>\n"
 "Language-Team: Burmese <https://translate.odoo.com/projects/odoo-18/"
 "hr_expense/my/>\n"
@@ -420,7 +420,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_expense.hr_expense_refuse_wizard_view_form
 #: model_terms:ir.ui.view,arch_db:hr_expense.hr_expense_split
 msgid "Cancel"
-msgstr ""
+msgstr "ပယ်ဖျက်"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_sheet__cannot_approve_reason
@@ -472,7 +472,7 @@ msgstr "ကုမ္ပဏီများ"
 #: model_terms:ir.ui.view,arch_db:hr_expense.hr_expense_sheet_view_search
 #: model_terms:ir.ui.view,arch_db:hr_expense.hr_expense_view_search
 msgid "Company"
-msgstr ""
+msgstr "ကုမ္ပဏီ"
 
 #. module: hr_expense
 #: model:ir.model,name:hr_expense.model_res_config_settings
@@ -482,7 +482,7 @@ msgstr ""
 #. module: hr_expense
 #: model:ir.ui.menu,name:hr_expense.menu_hr_expense_configuration
 msgid "Configuration"
-msgstr ""
+msgstr "ပြင်ဆင်ရန်"
 
 #. module: hr_expense
 #: model:ir.model.fields,help:hr_expense.field_hr_expense__product_uom_category_id
@@ -608,7 +608,7 @@ msgstr "ဌာန"
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense__name
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_split__name
 msgid "Description"
-msgstr ""
+msgstr "ဖော်ပြချက်"
 
 #. module: hr_expense
 #: model_terms:ir.ui.view,arch_db:hr_expense.res_config_settings_view_form
@@ -623,7 +623,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_split__display_name
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_split_wizard__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "ပြသသော အမည်"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense__distribution_analytic_account_ids
@@ -667,7 +667,7 @@ msgstr ""
 #. module: hr_expense
 #: model:mail.message.subtype,name:hr_expense.mt_expense_reset
 msgid "Draft"
-msgstr ""
+msgstr "အကြမ်း"
 
 #. module: hr_expense
 #. odoo-python
@@ -700,7 +700,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:hr_expense.action_hr_expense_account
 #: model:ir.ui.menu,name:hr_expense.menu_hr_expense_account_employee_expenses
 msgid "Employee Expenses"
-msgstr ""
+msgstr "ဝန်ထမ်း အသုံးစရိတ်များ"
 
 #. module: hr_expense
 #. odoo-javascript
@@ -977,7 +977,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense__message_follower_ids
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_sheet__message_follower_ids
 msgid "Followers"
-msgstr ""
+msgstr "ဖော်လိုဝါများ"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense__message_partner_ids
@@ -1111,7 +1111,7 @@ msgstr ""
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense__description
 msgid "Internal Notes"
-msgstr ""
+msgstr "အတွင်းပိုင်း မှတ်စုများ"
 
 #. module: hr_expense
 #. odoo-python
@@ -1256,7 +1256,7 @@ msgstr ""
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_sheet__user_id
 msgid "Manager"
-msgstr ""
+msgstr "မန်နေဂျာ"
 
 #. module: hr_expense
 #. odoo-javascript
@@ -1334,7 +1334,7 @@ msgstr ""
 #. module: hr_expense
 #: model_terms:ir.ui.view,arch_db:hr_expense.report_expense_sheet
 msgid "Name"
-msgstr ""
+msgstr "အမည်"
 
 #. module: hr_expense
 #. odoo-javascript
@@ -1545,7 +1545,7 @@ msgstr ""
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_sheet__payment_method_line_id
 msgid "Payment Method"
-msgstr ""
+msgstr "ငွေပေးချေမှု နည်းလမ်း"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_sheet__payment_state
@@ -1629,7 +1629,7 @@ msgstr ""
 #: model:ir.model,name:hr_expense.model_product_template
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_split__product_id
 msgid "Product"
-msgstr ""
+msgstr "ပစ္စည်း"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense__product_description
@@ -1654,7 +1654,7 @@ msgstr ""
 #. module: hr_expense
 #: model_terms:ir.ui.view,arch_db:hr_expense.product_product_expense_tree_view
 msgid "Product Variants"
-msgstr ""
+msgstr "ပစ္စည်း မူကွဲများ"
 
 #. module: hr_expense
 #: model:ir.model,name:hr_expense.model_hr_employee_public
@@ -1665,7 +1665,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense__quantity
 #: model_terms:ir.ui.view,arch_db:hr_expense.report_expense_sheet
 msgid "Quantity"
-msgstr ""
+msgstr "အရေအတွက်"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense__rating_ids
@@ -1781,7 +1781,7 @@ msgstr ""
 #. module: hr_expense
 #: model_terms:ir.ui.view,arch_db:hr_expense.product_product_expense_categories_tree_view
 msgid "Sales Price"
-msgstr ""
+msgstr "ရောင်းစျေး"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense__same_receipt_expense_ids
@@ -1833,7 +1833,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:hr_expense.action_hr_expense_configuration
 #: model:ir.ui.menu,name:hr_expense.menu_hr_expense_global_settings
 msgid "Settings"
-msgstr ""
+msgstr "ဆက်တင်များ"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_approve_duplicate__sheet_ids
@@ -1945,7 +1945,7 @@ msgstr ""
 #: model:ir.model,name:hr_expense.model_account_tax
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_split__tax_ids
 msgid "Tax"
-msgstr ""
+msgstr "အခွန်"
 
 #. module: hr_expense
 #: model_terms:ir.ui.view,arch_db:hr_expense.report_expense_sheet
@@ -1980,7 +1980,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_expense.report_expense_sheet
 #: model_terms:ir.ui.view,arch_db:hr_expense.view_hr_expense_sheet_form
 msgid "Taxes"
-msgstr ""
+msgstr "အခွန်များ"
 
 #. module: hr_expense
 #: model:res.groups,name:hr_expense.group_hr_expense_team_approver
@@ -2112,7 +2112,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_expense.hr_expense_view_form
 #: model_terms:ir.ui.view,arch_db:hr_expense.report_expense_sheet
 msgid "Total"
-msgstr ""
+msgstr "စုစုပေါင်း"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_split_wizard__total_amount_currency
@@ -2168,12 +2168,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_expense.hr_expense_view_expenses_analysis_tree
 #: model_terms:ir.ui.view,arch_db:hr_expense.report_expense_sheet
 msgid "Unit Price"
-msgstr ""
+msgstr "တစ်ယူနစ် စျေးနှုန်း"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense__product_uom_id
 msgid "Unit of Measure"
-msgstr ""
+msgstr "တိုင်းတာသော ယူနစ်"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_sheet__untaxed_amount
