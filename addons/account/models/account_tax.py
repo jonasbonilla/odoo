@@ -642,14 +642,15 @@ class AccountTax(models.Model):
         return vals_list
 
     @api.depends('type_tax_use', 'tax_scope')
-    @api.depends_context('append_type_to_tax_name')
+    @api.depends_context('append_fields', 'append_type_to_tax_name')
     def _compute_display_name(self):
         type_tax_use = dict(self._fields['type_tax_use']._description_selection(self.env))
+        fields_to_include = set(self.env.context.get('append_fields') or [])
         for record in self:
             if name := record.name:
                 if self._context.get('append_type_to_tax_name'):
                     name += ' (%s)' % type_tax_use.get(record.type_tax_use)
-                if len(self.env.companies) > 1 and self.env.context.get('params', {}).get('model') == 'product.template':
+                if 'company_id' in fields_to_include and len(self.env.companies) > 1:
                     name += ' (%s)' % record.company_id.display_name
                 if record.country_id != record.company_id._accessible_branches()[:1].account_fiscal_country_id:
                     name += ' (%s)' % record.country_code
@@ -820,41 +821,23 @@ class AccountTax(models.Model):
         # Group them per batch.
         batch = self.env['account.tax']
         is_base_affected = False
-        include_base_amount = False
-        is_first_batch = True
         for tax in reversed(results['sorted_taxes']):
-            same_batch = False
             if batch:
                 same_batch = (
                     tax.amount_type == batch[0].amount_type
                     and (special_mode or tax.price_include == batch[0].price_include)
+                    and tax.include_base_amount == batch[0].include_base_amount
+                    and (
+                        (tax.include_base_amount and not is_base_affected)
+                        or not tax.include_base_amount
+                    )
                 )
-                if same_batch:
-                    same_batch = False
-                    if is_first_batch and tax.include_base_amount != include_base_amount:
-                        include_base_amount = tax.include_base_amount
-                    if not include_base_amount and not tax.include_base_amount:
-                        # No tax affecting another one.
-                        same_batch = True
-                    elif (
-                        include_base_amount
-                        and tax.include_base_amount
-                        and not is_base_affected
-                        and tax.is_base_affected
-                    ):
-                        # Tax affecting the following taxes but in batch using 'is_base_affected'.
-                        is_base_affected = tax.is_base_affected
-                        same_batch = True
-
                 if not same_batch:
                     for batch_tax in batch:
                         results['batch_per_tax'][batch_tax.id] = batch
                     batch = self.env['account.tax']
-                    is_first_batch = False
 
-            if not same_batch:
-                is_base_affected = tax.is_base_affected
-                include_base_amount = tax.include_base_amount
+            is_base_affected = tax.is_base_affected
             batch |= tax
 
         if batch:
