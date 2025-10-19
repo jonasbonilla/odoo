@@ -5949,7 +5949,7 @@ class AccountMove(models.Model):
             # No eligible method could be found; we can't generate the QR-code
             return None
 
-        unstruct_ref = self.ref if self.ref else self.name
+        unstruct_ref = self.payment_reference or self.name
         rslt = self.partner_bank_id.build_qr_code_base64(self.amount_residual, unstruct_ref, self.payment_reference, self.currency_id, self.partner_id, qr_code_method, silent_errors=silent_errors)
 
         # We only set qr_code_method after generating the url; otherwise, it
@@ -6160,9 +6160,14 @@ class AccountMove(models.Model):
     def _routing_check_route(self, message, message_dict, route, raise_exception=True):
         if route[0] == 'account.move' and len(message_dict['attachments']) < 1:
             # Don't create the move if no attachment.
+            company_id = route[2].get('company_id', self.env.company.id)
+            if not isinstance(company_id, int):
+                raise ValueError(_("Default value for 'company_id' for %(record)s is not an integer",
+                                  record=route[4]))
+            journal_alias_company = self.env['res.company'].search([['id', '=', company_id]])
             body = self.env['ir.qweb']._render('account.email_template_mail_gateway_failed', {
-                'company_email': self.env.company.email,
-                'company_name': self.env.company.name,
+                'company_email': journal_alias_company.email or self.env.company.email,
+                'company_name': journal_alias_company.name or self.env.company.name,
             })
             self._routing_create_bounce_email(
                 message_dict['from'], body, message,
