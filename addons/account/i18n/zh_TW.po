@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-07 18:36+0000\n"
-"PO-Revision-Date: 2025-08-23 01:40+0000\n"
+"POT-Creation-Date: 2025-09-12 02:56+0000\n"
+"PO-Revision-Date: 2025-10-14 01:40+0000\n"
 "Last-Translator: \"Tony Ng (ngto)\" <ngto@odoo.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://translate.odoo.com/"
 "projects/odoo-17/account/zh_Hant/>\n"
@@ -1215,7 +1215,7 @@ msgstr "<span>5.00</span>"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.report_payment_receipt_document
 msgid "<span>Amount In Currency</span>"
-msgstr "<span>原幣金額</span>"
+msgstr "<span>該貨幣金額</span>"
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.bill_preview
@@ -2646,7 +2646,7 @@ msgstr "金額類型"
 #: model:ir.model.fields,field_description:account.field_account_move_line__amount_currency
 #: model_terms:ir.ui.view,arch_db:account.view_account_payment_tree
 msgid "Amount in Currency"
-msgstr "外幣金額"
+msgstr "該貨幣金額"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_payment_register__source_amount
@@ -5288,7 +5288,7 @@ msgstr "會計在系統中管理的日期. 這是期初分錄的日期."
 #: code:addons/account/static/src/components/account_payment_field/account_payment.xml:0
 #, python-format
 msgid "Date:"
-msgstr "日期:"
+msgstr "日期："
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_move_line_form
@@ -5753,7 +5753,7 @@ msgstr "折扣日"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_line__discount_amount_currency
 msgid "Discount amount in Currency"
-msgstr "折扣金額於幣別"
+msgstr "該貨幣折扣金額"
 
 #. module: account
 #. odoo-python
@@ -8782,6 +8782,11 @@ msgstr "七月"
 #: model:ir.model.fields.selection,name:account.selection__res_company__fiscalyear_last_month__6
 msgid "June"
 msgstr "六月"
+
+#. module: account
+#: model:ir.model,name:account.model_kpi_provider
+msgid "KPI Provider"
+msgstr ""
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_journal__kanban_dashboard
@@ -12022,7 +12027,7 @@ msgstr "殘值金額"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_line__amount_residual_currency
 msgid "Residual Amount in Currency"
-msgstr "殘值金額幣別"
+msgstr "該貨幣剩餘金額"
 
 #. module: account
 #. odoo-python
@@ -16665,7 +16670,7 @@ msgstr "如果沒有至少一個應收/應付款明細，您將無法打開付�
 msgid ""
 "You can't provide a foreign currency without specifying an amount in 'Amount "
 "in Currency' field."
-msgstr "如果沒有在'貨幣金額'欄位中指定金額，您無法提供外幣."
+msgstr "若要提供外幣，必須在「該貨幣金額」欄位輸入金額。"
 
 #. module: account
 #. odoo-python

@@ -524,9 +524,6 @@ class BaseCase(case.TestCase, metaclass=MetaCase):
 
             The second form is convenient when used with :func:`users`.
         """
-        if not 'is_query_count' in self.test_tags:
-            # change into warning in master
-            self._logger.info('assertQueryCount is used but the test is not tagged `is_query_count`')
         if self.warm:
             # mock random in order to avoid random bus gc
             with patch('random.random', lambda: 1):
@@ -778,9 +775,10 @@ class BaseCase(case.TestCase, metaclass=MetaCase):
         """Guess if the test_methods is a query_count and adds an `is_query_count` tag on the test
         """
         additional_tags = []
-        method_source = inspect.getsource(test_method) if test_method else ''
-        if 'self.assertQueryCount' in method_source:
-            additional_tags.append('is_query_count')
+        if odoo.tools.config['test_tags'] and 'is_query_count' in odoo.tools.config['test_tags']:
+            method_source = inspect.getsource(test_method) if test_method else ''
+            if 'self.assertQueryCount' in method_source:
+                additional_tags.append('is_query_count')
         return additional_tags
 
 
@@ -1053,32 +1051,41 @@ class ChromeBrowser:
 
     def stop(self):
         if hasattr(self, 'ws'):
-            self._websocket_send('Page.stopScreencast')
-            if self.screencasts_dir:
-                screencasts_frames_dir = self.screencasts_frames_dir
-                self.screencasts_dir = None
-                if os.path.isdir(screencasts_frames_dir):
-                    shutil.rmtree(screencasts_frames_dir, ignore_errors=True)
+            try:
+                self._websocket_send('Page.stopScreencast')
+                if self.screencasts_dir:
+                    screencasts_frames_dir = self.screencasts_frames_dir
+                    self.screencasts_dir = None
+                    if os.path.isdir(screencasts_frames_dir):
+                        shutil.rmtree(screencasts_frames_dir, ignore_errors=True)
 
-            self._websocket_request('Page.stopLoading')
-            self._websocket_request('Runtime.evaluate', params={'expression': """
-            ('serviceWorker' in navigator) &&
-                navigator.serviceWorker.getRegistrations().then(
-                    registrations => Promise.all(registrations.map(r => r.unregister()))
-                )
-            """, 'awaitPromise': True})
-            # wait for the screenshot or whatever
-            wait(self._responses.values(), 10)
-            self._result.cancel()
+                self._websocket_request('Page.stopLoading')
+                self._websocket_request('Runtime.evaluate', params={'expression': """
+                ('serviceWorker' in navigator) &&
+                    navigator.serviceWorker.getRegistrations().then(
+                        registrations => Promise.all(registrations.map(r => r.unregister()))
+                    )
+                """, 'awaitPromise': True})
+                # wait for the screenshot or whatever
+                wait(self._responses.values(), 10)
+                self._result.cancel()
 
-            self._logger.info("Closing chrome headless with pid %s", self.chrome.pid)
-            self._websocket_request('Browser.close')
+                self._logger.info("Closing chrome headless with pid %s", self.chrome.pid)
+                self._websocket_request('Browser.close')
+            except ChromeBrowserException as e:
+                _logger.runbot("WS error during browser shutdown: %s", e)
+            except Exception:  # noqa: BLE001
+                _logger.warning("Error during browser shutdown", exc_info=True)
             self._logger.info("Closing websocket connection")
             self.ws.close()
         if self.chrome:
             self._logger.info("Terminating chrome headless with pid %s", self.chrome.pid)
             self.chrome.terminate()
-            self.chrome.wait(15)
+            try:
+                self.chrome.wait(15)
+            except subprocess.TimeoutExpired:
+                self._logger.warning("Killing chrome headless with pid %s: still alive", self.chrome.pid)
+                self.chrome.kill()
 
         if self.user_data_dir and os.path.isdir(self.user_data_dir) and self.user_data_dir != '/':
             self._logger.info('Removing chrome user profile "%s"', self.user_data_dir)
@@ -1275,7 +1282,7 @@ class ChromeBrowser:
                 continue
             except websocket.WebSocketConnectionClosedException as e:
                 if not self._result.done():
-                    self.ws = None
+                    del self.ws
                     self._result.set_exception(e)
                     for f in self._responses.values():
                         f.cancel()
@@ -1314,8 +1321,8 @@ class ChromeBrowser:
     def _websocket_request(self, method, *, params=None, timeout=10.0):
         assert threading.get_ident() != self._receiver.ident,\
             "_websocket_request must not be called from the consumer thread"
-        if self.ws is None:
-            return
+        if not hasattr(self, 'ws'):
+            return None
 
         f = self._websocket_send(method, params=params, with_future=True)
         try:
@@ -1328,8 +1335,8 @@ class ChromeBrowser:
 
         If ``with_future`` is set, returns a ``Future`` for the operation.
         """
-        if self.ws is None:
-            return
+        if not hasattr(self, 'ws'):
+            return None
 
         result = None
         request_id = next(self._request_id)
@@ -1521,7 +1528,8 @@ which leads to stray network requests and inconsistencies."""
 
         self._logger.info('Asking for screenshot')
         f = self._websocket_send('Page.captureScreenshot', with_future=True)
-        f.add_done_callback(handler)
+        if f:
+            f.add_done_callback(handler)
         return f
 
     def _save_screencast(self, prefix='failed'):
@@ -2086,9 +2094,6 @@ class HttpCase(TransactionCase):
         """Wrapper for `browser_js` to start the given `tour_name` with the
         optional delay between steps `step_delay`. Other arguments from
         `browser_js` can be passed as keyword arguments."""
-        if not 'is_tour' in self.test_tags:
-            # change it into warning in master
-            self._logger.info('start_tour was called from a test not tagged `is_tour`')
         options = {
             'stepDelay': step_delay if step_delay else 0,
             'keepWatchBrowser': kwargs.get('watch', False),
@@ -2113,9 +2118,10 @@ class HttpCase(TransactionCase):
         guess if the test_methods is a tour and adds an `is_tour` tag on the test
         """
         additional_tags = super().get_method_additional_tags(test_method)
-        method_source = inspect.getsource(test_method)
-        if 'self.start_tour' in method_source:
-            additional_tags.append('is_tour')
+        if odoo.tools.config['test_tags'] and 'is_tour' in odoo.tools.config['test_tags']:
+            method_source = inspect.getsource(test_method)
+            if 'self.start_tour' in method_source:
+                additional_tags.append('is_tour')
         return additional_tags
 
     def make_jsonrpc_request(self, route, params=None, headers=None):

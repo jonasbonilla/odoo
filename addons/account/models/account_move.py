@@ -2646,6 +2646,10 @@ class AccountMove(models.Model):
         '''
         self.ensure_one()
 
+        # No cash basis journal entry should be created for an account move in a bank or cash journal
+        if self.journal_id.type in ('bank', 'cash'):
+            return None
+
         values = {
             'move': self,
             'to_process_lines': [],
@@ -4017,7 +4021,7 @@ class AccountMove(models.Model):
 
     def _link_bill_origin_to_purchase_orders(self, timeout=10):
         for move in self.filtered(lambda m: m.move_type in self.get_purchase_types()):
-            references = [move.invoice_origin] if move.invoice_origin else []
+            references = [ref.strip() for ref in move.invoice_origin.split(',')] if move.invoice_origin else []
             move._find_and_set_purchase_orders(references, move.partner_id.id, move.amount_total, timeout=timeout)
         return self
 
@@ -4834,7 +4838,11 @@ class AccountMove(models.Model):
             'invoice_source_email': from_mail_addresses[0],
             'partner_id': partners and partners[0].id or False,
         }
-        move_ctx = self.with_context(default_move_type=custom_values['move_type'], default_journal_id=custom_values['journal_id'])
+        move_ctx = self.with_context(
+            default_move_type=custom_values['move_type'],
+            default_journal_id=custom_values['journal_id'],
+            default_company_id=company.id,
+        )
         move = super(AccountMove, move_ctx).message_new(msg_dict, custom_values=values)
         move._compute_name()  # because the name is given, we need to recompute in case it is the first invoice of the journal
 

@@ -429,13 +429,13 @@ class HolidaysRequest(models.Model):
     @api.depends('holiday_status_id', 'request_unit_hours')
     def _compute_request_unit_half(self):
         for holiday in self:
-            if holiday.holiday_status_id or holiday.request_unit_hours:
+            if (holiday.holiday_status_id and holiday.leave_type_request_unit not in ['half_day', 'hour']) or holiday.request_unit_hours:
                 holiday.request_unit_half = False
 
     @api.depends('holiday_status_id', 'request_unit_half')
     def _compute_request_unit_hours(self):
         for holiday in self:
-            if holiday.holiday_status_id or holiday.request_unit_half:
+            if (holiday.holiday_status_id and holiday.leave_type_request_unit != 'hour') or holiday.request_unit_half:
                 holiday.request_unit_hours = False
 
     @api.depends('employee_ids')
@@ -532,6 +532,7 @@ class HolidaysRequest(models.Model):
                 date_to.date())
 
             for leave in self:
+                department_ids = leave.employee_id.department_id.ids
                 domain = [
                     ('start_date', '<=', leave.date_to.date()),
                     ('end_date', '>=', leave.date_from.date()),
@@ -539,6 +540,14 @@ class HolidaysRequest(models.Model):
                         ('resource_calendar_id', '=', False),
                         ('resource_calendar_id', '=', leave.resource_calendar_id.id),
                 ]
+                if department_ids:
+                    domain += [
+                        '|',
+                        ('department_ids', '=', False),
+                        ('department_ids', 'parent_of', department_ids),
+                    ]
+                else:
+                    domain += [('department_ids', '=', False)]
 
                 if leave.holiday_status_id.company_id:
                     domain += [('company_id', '=', leave.holiday_status_id.company_id.id)]
@@ -1135,13 +1144,18 @@ Attempting to double-book your time off won't magically make your vacation 2x be
             else:
                 meeting_name = _("%s on Time Off : %.2f day(s)") % (holiday.employee_id.name or holiday.category_id.name, holiday.number_of_days)
                 allday_value = not holiday.request_unit_half
+
+            leave_tz = timezone(holiday.tz) if holiday.tz else UTC
+            start_value = UTC.localize(holiday.date_from).astimezone(leave_tz).replace(tzinfo=None)
+            stop_value = UTC.localize(holiday.date_to).astimezone(leave_tz).replace(tzinfo=None)
+
             meeting_values = {
                 'name': meeting_name,
                 'duration': holiday.number_of_days * (holiday.resource_calendar_id.hours_per_day or HOURS_PER_DAY),
                 'description': holiday.notes,
                 'user_id': user.id,
-                'start': holiday.date_from,
-                'stop': holiday.date_to,
+                'start': start_value,
+                'stop': stop_value,
                 'allday': allday_value,
                 'privacy': 'confidential',
                 'event_tz': user.tz,

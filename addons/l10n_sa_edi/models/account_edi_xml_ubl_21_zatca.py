@@ -102,13 +102,17 @@ class AccountEdiXmlUBL21Zatca(models.AbstractModel):
 
     def _get_partner_party_identification_vals_list(self, partner):
         """ Override to include/update values specific to ZATCA's UBL 2.1 specs """
+        identification_number = partner.l10n_sa_additional_identification_number
+        vat = re.sub(r'[^a-zA-Z0-9]', '', partner.vat or "")
+        if partner.country_code != "SA":
+            identification_number = vat
+        elif partner.l10n_sa_additional_identification_scheme == 'TIN':
+            # according to ZATCA, the TIN number is always the first 10 digits of the VAT number
+            identification_number = vat[:10]
+
         return [{
             'id_attrs': {'schemeID': partner.l10n_sa_additional_identification_scheme},
-            'id': (
-                partner.l10n_sa_additional_identification_number
-                if partner.l10n_sa_additional_identification_scheme != 'TIN' and partner.country_code == 'SA'
-                else partner.vat
-            ),
+            'id': identification_number,
         }]
 
     def _get_partner_party_legal_entity_vals_list(self, partner):
@@ -255,7 +259,7 @@ class AccountEdiXmlUBL21Zatca(models.AbstractModel):
         if downpayment_vals:
             # - BR-KSA-80: To calculate payable amount, we deduct prepaid amount from total tax inclusive amount
             prepaid_amount = downpayment_vals['total_amount']
-            payable_amount = tax_inclusive_amount - prepaid_amount
+            payable_amount = invoice.currency_id.round(tax_inclusive_amount - prepaid_amount)
         return {
             'line_extension_amount': line_extension_amount - allowance_total_amount,
             'tax_inclusive_amount': tax_inclusive_amount,

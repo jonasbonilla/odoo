@@ -392,7 +392,8 @@ class WebsiteSale(payment_portal.PaymentPortal):
         if filter_by_price_enabled:
             # TODO Find an alternative way to obtain the domain through the search metadata.
             Product = request.env['product.template'].with_context(bin_size=True)
-            domain = self._get_shop_domain(search, category, attrib_values)
+            search_term = fuzzy_search_term if fuzzy_search_term else search
+            domain = self._get_shop_domain(search_term, category, attrib_values)
 
             # This is ~4 times more efficient than a search for the cheapest and most expensive products
             query = Product._where_calc(domain)
@@ -424,7 +425,12 @@ class WebsiteSale(payment_portal.PaymentPortal):
         if filter_by_tags_enabled and search_product:
             all_tags = ProductTag.search(
                 expression.AND([
-                    [('product_ids.is_published', '=', True), ('visible_on_ecommerce', '=', True)],
+                    [
+                        ('visible_on_ecommerce', '=', True),
+                        '|',
+                        ('product_template_ids.is_published', '=', True),
+                        ('product_product_ids.is_published', '=', True),
+                    ],
                     website_domain
                 ])
             )
@@ -1862,6 +1868,7 @@ class WebsiteSale(payment_portal.PaymentPortal):
 
         if order and not order.amount_total and not tx_sudo:
             if order.state != 'sale':
+                order._check_cart_is_ready_to_be_paid()
                 order.with_context(send_email=True).with_user(SUPERUSER_ID).action_confirm()
             request.website.sale_reset()
             return request.redirect(order.get_portal_url())
@@ -2080,6 +2087,8 @@ class PaymentPortal(payment_portal.PaymentPortal):
         if compare_amounts(order_sudo.amount_paid, order_sudo.amount_total) == 0:
             raise UserError(_("The cart has already been paid. Please refresh the page."))
 
+        if delay_payment_request := kwargs.get('flow') == 'token':
+            request.update_context(delay_payment_request=True)  # wait until after tx validation
         tx_sudo = self._create_transaction(
             custom_create_values={'sale_order_ids': [Command.set([order_id])]}, **kwargs,
         )
@@ -2089,6 +2098,8 @@ class PaymentPortal(payment_portal.PaymentPortal):
         request.session['__website_sale_last_tx_id'] = tx_sudo.id
 
         self._validate_transaction_for_order(tx_sudo, order_id)
+        if delay_payment_request:
+            tx_sudo._send_payment_request()
 
         return tx_sudo._get_processing_values()
 

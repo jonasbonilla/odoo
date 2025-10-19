@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-07 18:36+0000\n"
-"PO-Revision-Date: 2025-08-26 01:40+0000\n"
-"Last-Translator: \"Patricia Gutiérrez (pagc)\" <pagc@odoo.com>\n"
+"POT-Creation-Date: 2025-09-12 02:56+0000\n"
+"PO-Revision-Date: 2025-10-18 01:40+0000\n"
+"Last-Translator: \"Fernanda Alvarez (mfar)\" <mfar@odoo.com>\n"
 "Language-Team: Spanish (Latin America) <https://translate.odoo.com/projects/"
 "odoo-17/account/es_419/>\n"
 "Language: es_419\n"
@@ -1760,7 +1760,6 @@ msgstr "Moneda de la cuenta"
 
 #. module: account
 #: model:onboarding.onboarding,name:account.onboarding_onboarding_account_dashboard
-#, fuzzy
 msgid "Account Dashboard Onboarding"
 msgstr "Introducción al tablero de contabilidad"
 
@@ -4016,7 +4015,7 @@ msgstr "Diferencia por redondeo de base de efectivo"
 #: code:addons/account/models/chart_template.py:0
 #, python-format
 msgid "Cash basis transition account"
-msgstr "Cuenta de transición de base de efectivo"
+msgstr "Cuenta transitoria de base de efectivo"
 
 #. module: account
 #. odoo-python
@@ -4549,9 +4548,9 @@ msgid ""
 "Conversion between Units of Measure can only occur if they belong to the "
 "same category. The conversion will be made based on the ratios."
 msgstr ""
-"La conversión entre las unidades de medidas solo puede ocurrir si pertenecen "
-"a la misma categoría. La conversión se realizará según los cambios "
-"establecidos."
+"La conversión entre unidades de medida solo puede ocurrir si pertenecen a la "
+"misma categoría. La conversión se realizará según las proporciones "
+"establecidas."
 
 #. module: account
 #: model_terms:ir.actions.act_window,help:account.action_open_sale_payment_items
@@ -9065,6 +9064,11 @@ msgid "June"
 msgstr "Junio"
 
 #. module: account
+#: model:ir.model,name:account.model_kpi_provider
+msgid "KPI Provider"
+msgstr "Proveedor de KPI"
+
+#. module: account
 #: model:ir.model.fields,field_description:account.field_account_journal__kanban_dashboard
 msgid "Kanban Dashboard"
 msgstr "Tablero de kanban"
@@ -10151,7 +10155,7 @@ msgstr "Sin transacción bancaria"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_move_line__blocked
 msgid "No Follow-up"
-msgstr "Sin seguimiento "
+msgstr "Sin seguimiento"
 
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__res_partner__invoice_warn__no-message
@@ -11352,7 +11356,7 @@ msgstr "Referencia de pago"
 #: model:ir.model.fields,field_description:account.field_account_move__payment_state
 #: model:ir.model.fields,field_description:account.field_account_payment__payment_state
 msgid "Payment Status"
-msgstr "Estado de pago"
+msgstr "Estado del pago"
 
 #. module: account
 #: model:ir.model.fields.selection,name:account.selection__account_move_line__display_type__payment_term
@@ -12752,7 +12756,7 @@ msgstr "Guarde esta página y luego regrese para configurar la función."
 #: code:addons/account/models/account_payment.py:0
 #, python-format
 msgid "Scan me with your banking app."
-msgstr "Escanéeme con su aplicación bancaria."
+msgstr "Escanéame con tu aplicación bancaria."
 
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.report_invoice_document
@@ -13615,7 +13619,7 @@ msgstr "El porcentaje de la línea del estado de cuenta no puede ser 0"
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_bank_statement__line_ids
 msgid "Statement lines"
-msgstr "Líneas de estado de cuenta"
+msgstr "Líneas del estado de cuenta"
 
 #. module: account
 #: model:ir.model.fields,field_description:account.field_account_bank_statement_line__statement_line_ids
@@ -16200,7 +16204,7 @@ msgstr "Nombre del tipo"
 #. module: account
 #: model_terms:ir.ui.view,arch_db:account.partner_view_buttons
 msgid "Type a message..."
-msgstr "Escriba un mensaje..."
+msgstr "Escribe un mensaje..."
 
 #. module: account
 #: model:ir.model.fields,help:account.field_account_bank_statement_line__qr_code_method
