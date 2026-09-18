@@ -51,3 +51,7 @@ package.json
 /man/
 /share/
 /src/
+/external-addons/
+/local-addons/
+/nosolotec/
+/pyproject.toml
