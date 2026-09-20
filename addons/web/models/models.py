@@ -1493,6 +1493,9 @@ class Base(models.AbstractModel):
 
         domain_image = {}
         for group in groups:
+            if not group[field_name]:
+                # value hidden by a record rule or archived
+                continue
             id_, display_name = group_id_name(group[field_name])
             values = {
                 'id': id_,
@@ -1969,6 +1972,19 @@ class Base(models.AbstractModel):
                 field_range.append(values)
 
             return { 'values': field_range, }
+
+    @api.model
+    def onchange_batch(self, values_list: list[dict], field_names: list[str], fields_spec: dict) -> list[dict]:
+        """
+        Apply onchange to a batch of new records.
+        This method only supports new records, so ``self`` must be empty.
+        """
+        assert not self, "self must be empty"
+
+        return [
+            self.onchange(values, field_names, fields_spec)
+            for values in values_list
+        ]
 
     def onchange(self, values: dict, field_names: list[str], fields_spec: dict):
         """

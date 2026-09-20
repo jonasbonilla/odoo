@@ -386,6 +386,9 @@ class AccountEdiCommon(models.AbstractModel):
                 base_line['quantity'] *= -1
                 base_line['price_unit'] *= -1
 
+    def _get_document_type_code_vals(self, invoice, invoice_data):
+        return {'attrs': {}, 'value': None}
+
     # -------------------------------------------------------------------------
     # TAXES
     # -------------------------------------------------------------------------
@@ -1444,6 +1447,7 @@ class AccountEdiCommon(models.AbstractModel):
             AccountTax._import_retrieve_tax_from_account_default_tax,
             AccountTax._import_retrieve_tax_from_invoice_predictive,
             AccountTax._import_retrieve_tax_from_price_include_exclude,
+            AccountTax._import_retrieve_tax_from_fixed_allowance_charge,
         ]
 
     def _import_invoice_retrieve_taxes(self, collected_values):

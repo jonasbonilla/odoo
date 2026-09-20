@@ -205,7 +205,7 @@ class ResPartner(models.Model):
             self.vies_valid = False
             return
 
-        for partner in self:
+        for partner in self.sorted(lambda p: bool(p.parent_id)):
             if not partner.vat:
                 partner.vies_valid = False
                 continue
@@ -974,7 +974,8 @@ class ResPartner(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         res = super().create(vals_list)
-        res.env.remove_to_compute(self._fields['vies_valid'], res)
+        if self.env.context.get('import_file'):
+            self.env.remove_to_compute(self._fields['vies_valid'], self)
         return res
 
     def write(self, vals):
