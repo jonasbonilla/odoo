@@ -276,6 +276,21 @@ export class PosStore extends WithLazyGetterTrap {
     }
 
     async reloadData(fullReload = false) {
+        try {
+            await this.syncAllOrders();
+        } catch (error) {
+            logPosMessage("Store", "reloadData", "Failed to sync orders", CONSOLE_COLOR, [error]);
+        }
+        // Reloading wipes the local orders, a paid order must never be lost that way
+        if (this.models["pos.order"].some((o) => o.isUnsyncedPaid && o.state !== "cancel")) {
+            this.dialog.add(AlertDialog, {
+                title: _t("Reload Data"),
+                body: _t(
+                    "Some paid orders have not been synced to the server yet. Closing or reloading now may cause data loss."
+                ),
+            });
+            return;
+        }
         const orders = this.models["pos.order"].getAll();
         this.device.saveUnusedNumber(orders);
         await this.data.resetIndexedDB();
@@ -541,7 +556,11 @@ export class PosStore extends WithLazyGetterTrap {
 
         for (const exclusion of excl ||
             this.models["product.template.attribute.exclusion"].getAll()) {
-            const ptavId = exclusion.product_template_attribute_value_id.id;
+            // An exclusion can outlive its value in the local cache
+            const ptavId = exclusion.product_template_attribute_value_id?.id;
+            if (!ptavId) {
+                continue;
+            }
             for (const { id: valueId } of exclusion.value_ids) {
                 addExclusion(ptavId, valueId);
                 addExclusion(valueId, ptavId);
@@ -657,7 +676,6 @@ export class PosStore extends WithLazyGetterTrap {
                 this.removeOrder(order, false);
                 this.removePendingOrder(order);
             }
-            await Promise.all(ordersToDelete.map((order) => this.recycleOrderNumber(order)));
         }
 
         return true;
@@ -1051,7 +1069,7 @@ export class PosStore extends WithLazyGetterTrap {
                 related_lines
             );
             related_lines
-                .filter((line) => line.price_type !== "manual")
+                .filter((line) => line.price_type === "original")
                 .forEach((line) => line.setUnitPrice(price));
         }
 
@@ -1358,18 +1376,8 @@ export class PosStore extends WithLazyGetterTrap {
             return;
         }
 
-        const removed = this.data.localDeleteCascade(order);
-        this.recycleOrderNumber(order);
-        return removed;
-    }
-    /**
-     * Recycle the receipt number only once the order is gone from IndexedDB,
-     * otherwise a reload restores it next to a new order using the same number.
-     */
-    recycleOrderNumber(order) {
-        return this.data
-            .deleteRecordsInIndexedDB("pos.order", [order.uuid])
-            .then(() => this.device.saveUnusedNumber([order]));
+        this.device.saveUnusedNumber([order]);
+        return this.data.localDeleteCascade(order);
     }
 
     /**
@@ -1436,6 +1444,7 @@ export class PosStore extends WithLazyGetterTrap {
     }
     setNextOrderRefs(order) {
         const deviceIdentifier = this.device.identifier;
+        this.device.removeUsedNumbers(this.models["pos.order"].getAll());
         const number = `${this.device.useNext()}`.padStart(6, "0");
         const configId = this.config.id;
         const year2Digits = DateTime.now().year.toString().slice(-2);
@@ -1636,6 +1645,7 @@ export class PosStore extends WithLazyGetterTrap {
                     }
                 }
 
+                this.device.removeUsedNumbers(newData["pos.order"]);
                 await this.postSyncAllOrders(newData["pos.order"]);
                 this.removePendingOrder(order);
                 syncedOrders.push(...newData["pos.order"]);

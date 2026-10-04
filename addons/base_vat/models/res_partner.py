@@ -11,7 +11,7 @@ from stdnum.exceptions import InvalidChecksum, InvalidFormat
 from stdnum.util import clean
 
 from odoo import api, models, fields, _, tools, modules
-from odoo.tools import LazyTranslate, hash_sign
+from odoo.tools import LazyTranslate, frozendict, hash_sign
 from odoo.exceptions import ValidationError, UserError
 from odoo.addons.base.models.res_partner import EU_EXTRA_VAT_CODES
 
@@ -20,9 +20,9 @@ _lt = LazyTranslate(__name__)
 _logger = logging.getLogger(__name__)
 
 
-EU_EXTRA_VAT_CODES_INV = {v: k for k, v in EU_EXTRA_VAT_CODES.items()}
+EU_EXTRA_VAT_CODES_INV = frozendict({v: k for k, v in EU_EXTRA_VAT_CODES.items()})
 
-_ref_vat = {
+_ref_vat = frozendict({
     'al': 'ALJ91402501L',
     'ar': '20055361682',
     'at': 'ATU12345675',
@@ -85,7 +85,7 @@ _ref_vat = {
     've': 'V-12345678-1, V123456781, V-12.345.678-1',
     'xi': 'XI123456782',
     'sa': _lt('310175397400003 [Fifteen digits, first and last digits should be "3"]'),
-}
+})
 
 
 class ResPartner(models.Model):
@@ -156,6 +156,15 @@ class ResPartner(models.Model):
                 except ValidationError:
                     msg = self._build_vat_error_message(code_to_check, vat_to_return, partner_label)
                     raise ValidationError(msg + "\n\n" + _('If you are trying to input a European number, this is the expected format: ') + _ref_vat[country_code.lower()])
+
+            company_country = self.env.company.country_id
+            if company_country and company_country != country:
+                if self._get_vat_validation_method(company_country.code):
+                    try:
+                        return self._run_vat_checks(company_country, vat, partner_name, validation)
+                    except ValidationError:
+                        pass
+
             if validation == 'error':
                 msg = self._build_vat_error_message(code_to_check, vat_to_return, partner_label)
                 raise ValidationError(msg)
@@ -197,6 +206,14 @@ class ResPartner(models.Model):
                 and not to_check[:2].upper() == company_code
                 and self.env.company.vat_check_vies
             )
+
+    @api.model
+    def _get_vat_validation_method(self, country_code):
+        country_code = EU_EXTRA_VAT_CODES_INV.get(country_code.upper(), country_code).lower()
+        check_func_name = 'check_vat_' + country_code
+        stdnum_vat_module = stdnum.util.get_cc_module(country_code, 'vat')
+
+        return getattr(self, check_func_name, None) or getattr(stdnum_vat_module, 'is_valid', None)
 
     @api.depends('vat')
     def _compute_vies_valid(self):

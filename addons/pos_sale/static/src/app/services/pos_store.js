@@ -123,7 +123,7 @@ patch(PosStore.prototype, {
                     product_id: line.product_id,
                     qty: line.product_uom_qty,
                     price_unit: line.price_unit,
-                    price_type: "manual",
+                    price_type: "automatic",
                     tax_ids: taxes.map((tax) => ["link", tax]),
                     sale_order_origin_id: sale_order,
                     sale_order_line_id: line,
@@ -152,6 +152,12 @@ patch(PosStore.prototype, {
                 };
                 if (["line_section", "line_subsection"].includes(line.display_type)) {
                     continue;
+                }
+                if (line.is_downpayment) {
+                    newLineValues.extra_tax_data =
+                        accountTaxHelpers.reverse_quantity_base_line_extra_tax_data(
+                            line.extra_tax_data
+                        );
                 }
                 const newLine = await this.addLineToCurrentOrder(newLineValues, {}, false);
                 previousProductLine = newLine;
